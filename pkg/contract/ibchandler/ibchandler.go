@@ -20,6 +20,7 @@ var (
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
+	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
@@ -307,7 +308,7 @@ func bindIbchandler(address common.Address, caller bind.ContractCaller, transact
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Ibchandler *IbchandlerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Ibchandler *IbchandlerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _Ibchandler.Contract.IbchandlerCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -326,7 +327,7 @@ func (_Ibchandler *IbchandlerRaw) Transact(opts *bind.TransactOpts, method strin
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Ibchandler *IbchandlerCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Ibchandler *IbchandlerCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _Ibchandler.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -343,52 +344,47 @@ func (_Ibchandler *IbchandlerTransactorRaw) Transact(opts *bind.TransactOpts, me
 
 // GetHostAddress is a free data retrieval call binding the contract method 0xeb238c77.
 //
-// Solidity: function getHostAddress() view returns(address)
+// Solidity: function getHostAddress() constant returns(address)
 func (_Ibchandler *IbchandlerCaller) GetHostAddress(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _Ibchandler.contract.Call(opts, &out, "getHostAddress")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _Ibchandler.contract.Call(opts, out, "getHostAddress")
+	return *ret0, err
 }
 
 // GetHostAddress is a free data retrieval call binding the contract method 0xeb238c77.
 //
-// Solidity: function getHostAddress() view returns(address)
+// Solidity: function getHostAddress() constant returns(address)
 func (_Ibchandler *IbchandlerSession) GetHostAddress() (common.Address, error) {
 	return _Ibchandler.Contract.GetHostAddress(&_Ibchandler.CallOpts)
 }
 
 // GetHostAddress is a free data retrieval call binding the contract method 0xeb238c77.
 //
-// Solidity: function getHostAddress() view returns(address)
+// Solidity: function getHostAddress() constant returns(address)
 func (_Ibchandler *IbchandlerCallerSession) GetHostAddress() (common.Address, error) {
 	return _Ibchandler.Contract.GetHostAddress(&_Ibchandler.CallOpts)
 }
 
 // AcknowledgePacket is a paid mutator transaction binding the contract method 0x59f37976.
 //
-// Solidity: function acknowledgePacket(((uint64,string,string,string,string,bytes,(uint64,uint64),uint64),bytes,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function acknowledgePacket(IBCMsgsMsgPacketAcknowledgement msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) AcknowledgePacket(opts *bind.TransactOpts, msg_ IBCMsgsMsgPacketAcknowledgement) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "acknowledgePacket", msg_)
 }
 
 // AcknowledgePacket is a paid mutator transaction binding the contract method 0x59f37976.
 //
-// Solidity: function acknowledgePacket(((uint64,string,string,string,string,bytes,(uint64,uint64),uint64),bytes,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function acknowledgePacket(IBCMsgsMsgPacketAcknowledgement msg_) returns()
 func (_Ibchandler *IbchandlerSession) AcknowledgePacket(msg_ IBCMsgsMsgPacketAcknowledgement) (*types.Transaction, error) {
 	return _Ibchandler.Contract.AcknowledgePacket(&_Ibchandler.TransactOpts, msg_)
 }
 
 // AcknowledgePacket is a paid mutator transaction binding the contract method 0x59f37976.
 //
-// Solidity: function acknowledgePacket(((uint64,string,string,string,string,bytes,(uint64,uint64),uint64),bytes,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function acknowledgePacket(IBCMsgsMsgPacketAcknowledgement msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) AcknowledgePacket(msg_ IBCMsgsMsgPacketAcknowledgement) (*types.Transaction, error) {
 	return _Ibchandler.Contract.AcknowledgePacket(&_Ibchandler.TransactOpts, msg_)
 }
@@ -416,252 +412,252 @@ func (_Ibchandler *IbchandlerTransactorSession) BindPort(portId string, moduleAd
 
 // ChannelCloseConfirm is a paid mutator transaction binding the contract method 0x25cbc3a6.
 //
-// Solidity: function channelCloseConfirm((string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelCloseConfirm(IBCMsgsMsgChannelCloseConfirm msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) ChannelCloseConfirm(opts *bind.TransactOpts, msg_ IBCMsgsMsgChannelCloseConfirm) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "channelCloseConfirm", msg_)
 }
 
 // ChannelCloseConfirm is a paid mutator transaction binding the contract method 0x25cbc3a6.
 //
-// Solidity: function channelCloseConfirm((string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelCloseConfirm(IBCMsgsMsgChannelCloseConfirm msg_) returns()
 func (_Ibchandler *IbchandlerSession) ChannelCloseConfirm(msg_ IBCMsgsMsgChannelCloseConfirm) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelCloseConfirm(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelCloseConfirm is a paid mutator transaction binding the contract method 0x25cbc3a6.
 //
-// Solidity: function channelCloseConfirm((string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelCloseConfirm(IBCMsgsMsgChannelCloseConfirm msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) ChannelCloseConfirm(msg_ IBCMsgsMsgChannelCloseConfirm) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelCloseConfirm(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelCloseInit is a paid mutator transaction binding the contract method 0xa06cb3a2.
 //
-// Solidity: function channelCloseInit((string,string) msg_) returns()
+// Solidity: function channelCloseInit(IBCMsgsMsgChannelCloseInit msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) ChannelCloseInit(opts *bind.TransactOpts, msg_ IBCMsgsMsgChannelCloseInit) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "channelCloseInit", msg_)
 }
 
 // ChannelCloseInit is a paid mutator transaction binding the contract method 0xa06cb3a2.
 //
-// Solidity: function channelCloseInit((string,string) msg_) returns()
+// Solidity: function channelCloseInit(IBCMsgsMsgChannelCloseInit msg_) returns()
 func (_Ibchandler *IbchandlerSession) ChannelCloseInit(msg_ IBCMsgsMsgChannelCloseInit) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelCloseInit(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelCloseInit is a paid mutator transaction binding the contract method 0xa06cb3a2.
 //
-// Solidity: function channelCloseInit((string,string) msg_) returns()
+// Solidity: function channelCloseInit(IBCMsgsMsgChannelCloseInit msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) ChannelCloseInit(msg_ IBCMsgsMsgChannelCloseInit) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelCloseInit(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenAck is a paid mutator transaction binding the contract method 0x256c4199.
 //
-// Solidity: function channelOpenAck((string,string,string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelOpenAck(IBCMsgsMsgChannelOpenAck msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) ChannelOpenAck(opts *bind.TransactOpts, msg_ IBCMsgsMsgChannelOpenAck) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "channelOpenAck", msg_)
 }
 
 // ChannelOpenAck is a paid mutator transaction binding the contract method 0x256c4199.
 //
-// Solidity: function channelOpenAck((string,string,string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelOpenAck(IBCMsgsMsgChannelOpenAck msg_) returns()
 func (_Ibchandler *IbchandlerSession) ChannelOpenAck(msg_ IBCMsgsMsgChannelOpenAck) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenAck(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenAck is a paid mutator transaction binding the contract method 0x256c4199.
 //
-// Solidity: function channelOpenAck((string,string,string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelOpenAck(IBCMsgsMsgChannelOpenAck msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) ChannelOpenAck(msg_ IBCMsgsMsgChannelOpenAck) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenAck(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenConfirm is a paid mutator transaction binding the contract method 0x5bd51b62.
 //
-// Solidity: function channelOpenConfirm((string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelOpenConfirm(IBCMsgsMsgChannelOpenConfirm msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) ChannelOpenConfirm(opts *bind.TransactOpts, msg_ IBCMsgsMsgChannelOpenConfirm) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "channelOpenConfirm", msg_)
 }
 
 // ChannelOpenConfirm is a paid mutator transaction binding the contract method 0x5bd51b62.
 //
-// Solidity: function channelOpenConfirm((string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelOpenConfirm(IBCMsgsMsgChannelOpenConfirm msg_) returns()
 func (_Ibchandler *IbchandlerSession) ChannelOpenConfirm(msg_ IBCMsgsMsgChannelOpenConfirm) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenConfirm(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenConfirm is a paid mutator transaction binding the contract method 0x5bd51b62.
 //
-// Solidity: function channelOpenConfirm((string,string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function channelOpenConfirm(IBCMsgsMsgChannelOpenConfirm msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) ChannelOpenConfirm(msg_ IBCMsgsMsgChannelOpenConfirm) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenConfirm(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenInit is a paid mutator transaction binding the contract method 0xdd3469fc.
 //
-// Solidity: function channelOpenInit((string,(uint8,uint8,(string,string),string[],string)) msg_) returns(string)
+// Solidity: function channelOpenInit(IBCMsgsMsgChannelOpenInit msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactor) ChannelOpenInit(opts *bind.TransactOpts, msg_ IBCMsgsMsgChannelOpenInit) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "channelOpenInit", msg_)
 }
 
 // ChannelOpenInit is a paid mutator transaction binding the contract method 0xdd3469fc.
 //
-// Solidity: function channelOpenInit((string,(uint8,uint8,(string,string),string[],string)) msg_) returns(string)
+// Solidity: function channelOpenInit(IBCMsgsMsgChannelOpenInit msg_) returns(string)
 func (_Ibchandler *IbchandlerSession) ChannelOpenInit(msg_ IBCMsgsMsgChannelOpenInit) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenInit(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenInit is a paid mutator transaction binding the contract method 0xdd3469fc.
 //
-// Solidity: function channelOpenInit((string,(uint8,uint8,(string,string),string[],string)) msg_) returns(string)
+// Solidity: function channelOpenInit(IBCMsgsMsgChannelOpenInit msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactorSession) ChannelOpenInit(msg_ IBCMsgsMsgChannelOpenInit) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenInit(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenTry is a paid mutator transaction binding the contract method 0xec6260a9.
 //
-// Solidity: function channelOpenTry((string,string,(uint8,uint8,(string,string),string[],string),string,bytes,(uint64,uint64)) msg_) returns(string)
+// Solidity: function channelOpenTry(IBCMsgsMsgChannelOpenTry msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactor) ChannelOpenTry(opts *bind.TransactOpts, msg_ IBCMsgsMsgChannelOpenTry) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "channelOpenTry", msg_)
 }
 
 // ChannelOpenTry is a paid mutator transaction binding the contract method 0xec6260a9.
 //
-// Solidity: function channelOpenTry((string,string,(uint8,uint8,(string,string),string[],string),string,bytes,(uint64,uint64)) msg_) returns(string)
+// Solidity: function channelOpenTry(IBCMsgsMsgChannelOpenTry msg_) returns(string)
 func (_Ibchandler *IbchandlerSession) ChannelOpenTry(msg_ IBCMsgsMsgChannelOpenTry) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenTry(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ChannelOpenTry is a paid mutator transaction binding the contract method 0xec6260a9.
 //
-// Solidity: function channelOpenTry((string,string,(uint8,uint8,(string,string),string[],string),string,bytes,(uint64,uint64)) msg_) returns(string)
+// Solidity: function channelOpenTry(IBCMsgsMsgChannelOpenTry msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactorSession) ChannelOpenTry(msg_ IBCMsgsMsgChannelOpenTry) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ChannelOpenTry(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenAck is a paid mutator transaction binding the contract method 0xb531861f.
 //
-// Solidity: function connectionOpenAck((string,bytes,(string,string[]),string,bytes,bytes,bytes,(uint64,uint64),(uint64,uint64)) msg_) returns()
+// Solidity: function connectionOpenAck(IBCMsgsMsgConnectionOpenAck msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) ConnectionOpenAck(opts *bind.TransactOpts, msg_ IBCMsgsMsgConnectionOpenAck) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "connectionOpenAck", msg_)
 }
 
 // ConnectionOpenAck is a paid mutator transaction binding the contract method 0xb531861f.
 //
-// Solidity: function connectionOpenAck((string,bytes,(string,string[]),string,bytes,bytes,bytes,(uint64,uint64),(uint64,uint64)) msg_) returns()
+// Solidity: function connectionOpenAck(IBCMsgsMsgConnectionOpenAck msg_) returns()
 func (_Ibchandler *IbchandlerSession) ConnectionOpenAck(msg_ IBCMsgsMsgConnectionOpenAck) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenAck(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenAck is a paid mutator transaction binding the contract method 0xb531861f.
 //
-// Solidity: function connectionOpenAck((string,bytes,(string,string[]),string,bytes,bytes,bytes,(uint64,uint64),(uint64,uint64)) msg_) returns()
+// Solidity: function connectionOpenAck(IBCMsgsMsgConnectionOpenAck msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) ConnectionOpenAck(msg_ IBCMsgsMsgConnectionOpenAck) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenAck(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenConfirm is a paid mutator transaction binding the contract method 0x6a728f2c.
 //
-// Solidity: function connectionOpenConfirm((string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function connectionOpenConfirm(IBCMsgsMsgConnectionOpenConfirm msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) ConnectionOpenConfirm(opts *bind.TransactOpts, msg_ IBCMsgsMsgConnectionOpenConfirm) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "connectionOpenConfirm", msg_)
 }
 
 // ConnectionOpenConfirm is a paid mutator transaction binding the contract method 0x6a728f2c.
 //
-// Solidity: function connectionOpenConfirm((string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function connectionOpenConfirm(IBCMsgsMsgConnectionOpenConfirm msg_) returns()
 func (_Ibchandler *IbchandlerSession) ConnectionOpenConfirm(msg_ IBCMsgsMsgConnectionOpenConfirm) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenConfirm(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenConfirm is a paid mutator transaction binding the contract method 0x6a728f2c.
 //
-// Solidity: function connectionOpenConfirm((string,bytes,(uint64,uint64)) msg_) returns()
+// Solidity: function connectionOpenConfirm(IBCMsgsMsgConnectionOpenConfirm msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) ConnectionOpenConfirm(msg_ IBCMsgsMsgConnectionOpenConfirm) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenConfirm(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenInit is a paid mutator transaction binding the contract method 0x01c6400f.
 //
-// Solidity: function connectionOpenInit((string,(string,string,(bytes)),uint64) msg_) returns(string)
+// Solidity: function connectionOpenInit(IBCMsgsMsgConnectionOpenInit msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactor) ConnectionOpenInit(opts *bind.TransactOpts, msg_ IBCMsgsMsgConnectionOpenInit) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "connectionOpenInit", msg_)
 }
 
 // ConnectionOpenInit is a paid mutator transaction binding the contract method 0x01c6400f.
 //
-// Solidity: function connectionOpenInit((string,(string,string,(bytes)),uint64) msg_) returns(string)
+// Solidity: function connectionOpenInit(IBCMsgsMsgConnectionOpenInit msg_) returns(string)
 func (_Ibchandler *IbchandlerSession) ConnectionOpenInit(msg_ IBCMsgsMsgConnectionOpenInit) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenInit(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenInit is a paid mutator transaction binding the contract method 0x01c6400f.
 //
-// Solidity: function connectionOpenInit((string,(string,string,(bytes)),uint64) msg_) returns(string)
+// Solidity: function connectionOpenInit(IBCMsgsMsgConnectionOpenInit msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactorSession) ConnectionOpenInit(msg_ IBCMsgsMsgConnectionOpenInit) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenInit(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenTry is a paid mutator transaction binding the contract method 0xde310341.
 //
-// Solidity: function connectionOpenTry((string,(string,string,(bytes)),uint64,string,bytes,(string,string[])[],bytes,bytes,bytes,(uint64,uint64),(uint64,uint64)) msg_) returns(string)
+// Solidity: function connectionOpenTry(IBCMsgsMsgConnectionOpenTry msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactor) ConnectionOpenTry(opts *bind.TransactOpts, msg_ IBCMsgsMsgConnectionOpenTry) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "connectionOpenTry", msg_)
 }
 
 // ConnectionOpenTry is a paid mutator transaction binding the contract method 0xde310341.
 //
-// Solidity: function connectionOpenTry((string,(string,string,(bytes)),uint64,string,bytes,(string,string[])[],bytes,bytes,bytes,(uint64,uint64),(uint64,uint64)) msg_) returns(string)
+// Solidity: function connectionOpenTry(IBCMsgsMsgConnectionOpenTry msg_) returns(string)
 func (_Ibchandler *IbchandlerSession) ConnectionOpenTry(msg_ IBCMsgsMsgConnectionOpenTry) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenTry(&_Ibchandler.TransactOpts, msg_)
 }
 
 // ConnectionOpenTry is a paid mutator transaction binding the contract method 0xde310341.
 //
-// Solidity: function connectionOpenTry((string,(string,string,(bytes)),uint64,string,bytes,(string,string[])[],bytes,bytes,bytes,(uint64,uint64),(uint64,uint64)) msg_) returns(string)
+// Solidity: function connectionOpenTry(IBCMsgsMsgConnectionOpenTry msg_) returns(string)
 func (_Ibchandler *IbchandlerTransactorSession) ConnectionOpenTry(msg_ IBCMsgsMsgConnectionOpenTry) (*types.Transaction, error) {
 	return _Ibchandler.Contract.ConnectionOpenTry(&_Ibchandler.TransactOpts, msg_)
 }
 
 // CreateClient is a paid mutator transaction binding the contract method 0x0c8273ff.
 //
-// Solidity: function createClient((string,(uint64,uint64),bytes,bytes) msg_) returns()
+// Solidity: function createClient(IBCMsgsMsgCreateClient msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) CreateClient(opts *bind.TransactOpts, msg_ IBCMsgsMsgCreateClient) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "createClient", msg_)
 }
 
 // CreateClient is a paid mutator transaction binding the contract method 0x0c8273ff.
 //
-// Solidity: function createClient((string,(uint64,uint64),bytes,bytes) msg_) returns()
+// Solidity: function createClient(IBCMsgsMsgCreateClient msg_) returns()
 func (_Ibchandler *IbchandlerSession) CreateClient(msg_ IBCMsgsMsgCreateClient) (*types.Transaction, error) {
 	return _Ibchandler.Contract.CreateClient(&_Ibchandler.TransactOpts, msg_)
 }
 
 // CreateClient is a paid mutator transaction binding the contract method 0x0c8273ff.
 //
-// Solidity: function createClient((string,(uint64,uint64),bytes,bytes) msg_) returns()
+// Solidity: function createClient(IBCMsgsMsgCreateClient msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) CreateClient(msg_ IBCMsgsMsgCreateClient) (*types.Transaction, error) {
 	return _Ibchandler.Contract.CreateClient(&_Ibchandler.TransactOpts, msg_)
 }
 
 // RecvPacket is a paid mutator transaction binding the contract method 0x236ebd70.
 //
-// Solidity: function recvPacket(((uint64,string,string,string,string,bytes,(uint64,uint64),uint64),bytes,(uint64,uint64)) msg_) returns(bytes acknowledgement)
+// Solidity: function recvPacket(IBCMsgsMsgPacketRecv msg_) returns(bytes acknowledgement)
 func (_Ibchandler *IbchandlerTransactor) RecvPacket(opts *bind.TransactOpts, msg_ IBCMsgsMsgPacketRecv) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "recvPacket", msg_)
 }
 
 // RecvPacket is a paid mutator transaction binding the contract method 0x236ebd70.
 //
-// Solidity: function recvPacket(((uint64,string,string,string,string,bytes,(uint64,uint64),uint64),bytes,(uint64,uint64)) msg_) returns(bytes acknowledgement)
+// Solidity: function recvPacket(IBCMsgsMsgPacketRecv msg_) returns(bytes acknowledgement)
 func (_Ibchandler *IbchandlerSession) RecvPacket(msg_ IBCMsgsMsgPacketRecv) (*types.Transaction, error) {
 	return _Ibchandler.Contract.RecvPacket(&_Ibchandler.TransactOpts, msg_)
 }
 
 // RecvPacket is a paid mutator transaction binding the contract method 0x236ebd70.
 //
-// Solidity: function recvPacket(((uint64,string,string,string,string,bytes,(uint64,uint64),uint64),bytes,(uint64,uint64)) msg_) returns(bytes acknowledgement)
+// Solidity: function recvPacket(IBCMsgsMsgPacketRecv msg_) returns(bytes acknowledgement)
 func (_Ibchandler *IbchandlerTransactorSession) RecvPacket(msg_ IBCMsgsMsgPacketRecv) (*types.Transaction, error) {
 	return _Ibchandler.Contract.RecvPacket(&_Ibchandler.TransactOpts, msg_)
 }
@@ -689,21 +685,21 @@ func (_Ibchandler *IbchandlerTransactorSession) RegisterClient(clientType string
 
 // SendPacket is a paid mutator transaction binding the contract method 0x40835e44.
 //
-// Solidity: function sendPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) returns()
+// Solidity: function sendPacket(PacketData packet) returns()
 func (_Ibchandler *IbchandlerTransactor) SendPacket(opts *bind.TransactOpts, packet PacketData) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "sendPacket", packet)
 }
 
 // SendPacket is a paid mutator transaction binding the contract method 0x40835e44.
 //
-// Solidity: function sendPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) returns()
+// Solidity: function sendPacket(PacketData packet) returns()
 func (_Ibchandler *IbchandlerSession) SendPacket(packet PacketData) (*types.Transaction, error) {
 	return _Ibchandler.Contract.SendPacket(&_Ibchandler.TransactOpts, packet)
 }
 
 // SendPacket is a paid mutator transaction binding the contract method 0x40835e44.
 //
-// Solidity: function sendPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) returns()
+// Solidity: function sendPacket(PacketData packet) returns()
 func (_Ibchandler *IbchandlerTransactorSession) SendPacket(packet PacketData) (*types.Transaction, error) {
 	return _Ibchandler.Contract.SendPacket(&_Ibchandler.TransactOpts, packet)
 }
@@ -731,21 +727,21 @@ func (_Ibchandler *IbchandlerTransactorSession) SetExpectedTimePerBlock(expected
 
 // UpdateClient is a paid mutator transaction binding the contract method 0xda6cea55.
 //
-// Solidity: function updateClient((string,bytes) msg_) returns()
+// Solidity: function updateClient(IBCMsgsMsgUpdateClient msg_) returns()
 func (_Ibchandler *IbchandlerTransactor) UpdateClient(opts *bind.TransactOpts, msg_ IBCMsgsMsgUpdateClient) (*types.Transaction, error) {
 	return _Ibchandler.contract.Transact(opts, "updateClient", msg_)
 }
 
 // UpdateClient is a paid mutator transaction binding the contract method 0xda6cea55.
 //
-// Solidity: function updateClient((string,bytes) msg_) returns()
+// Solidity: function updateClient(IBCMsgsMsgUpdateClient msg_) returns()
 func (_Ibchandler *IbchandlerSession) UpdateClient(msg_ IBCMsgsMsgUpdateClient) (*types.Transaction, error) {
 	return _Ibchandler.Contract.UpdateClient(&_Ibchandler.TransactOpts, msg_)
 }
 
 // UpdateClient is a paid mutator transaction binding the contract method 0xda6cea55.
 //
-// Solidity: function updateClient((string,bytes) msg_) returns()
+// Solidity: function updateClient(IBCMsgsMsgUpdateClient msg_) returns()
 func (_Ibchandler *IbchandlerTransactorSession) UpdateClient(msg_ IBCMsgsMsgUpdateClient) (*types.Transaction, error) {
 	return _Ibchandler.Contract.UpdateClient(&_Ibchandler.TransactOpts, msg_)
 }
@@ -847,7 +843,7 @@ type IbchandlerAcknowledgePacket struct {
 
 // FilterAcknowledgePacket is a free log retrieval operation binding the contract event 0x47471450765e6e1b0b055ba2a1de04d4ce71f778c92b306e725083eb120dfd89.
 //
-// Solidity: event AcknowledgePacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet, bytes acknowledgement)
+// Solidity: event AcknowledgePacket(PacketData packet, bytes acknowledgement)
 func (_Ibchandler *IbchandlerFilterer) FilterAcknowledgePacket(opts *bind.FilterOpts) (*IbchandlerAcknowledgePacketIterator, error) {
 
 	logs, sub, err := _Ibchandler.contract.FilterLogs(opts, "AcknowledgePacket")
@@ -859,7 +855,7 @@ func (_Ibchandler *IbchandlerFilterer) FilterAcknowledgePacket(opts *bind.Filter
 
 // WatchAcknowledgePacket is a free log subscription operation binding the contract event 0x47471450765e6e1b0b055ba2a1de04d4ce71f778c92b306e725083eb120dfd89.
 //
-// Solidity: event AcknowledgePacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet, bytes acknowledgement)
+// Solidity: event AcknowledgePacket(PacketData packet, bytes acknowledgement)
 func (_Ibchandler *IbchandlerFilterer) WatchAcknowledgePacket(opts *bind.WatchOpts, sink chan<- *IbchandlerAcknowledgePacket) (event.Subscription, error) {
 
 	logs, sub, err := _Ibchandler.contract.WatchLogs(opts, "AcknowledgePacket")
@@ -896,13 +892,12 @@ func (_Ibchandler *IbchandlerFilterer) WatchAcknowledgePacket(opts *bind.WatchOp
 
 // ParseAcknowledgePacket is a log parse operation binding the contract event 0x47471450765e6e1b0b055ba2a1de04d4ce71f778c92b306e725083eb120dfd89.
 //
-// Solidity: event AcknowledgePacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet, bytes acknowledgement)
+// Solidity: event AcknowledgePacket(PacketData packet, bytes acknowledgement)
 func (_Ibchandler *IbchandlerFilterer) ParseAcknowledgePacket(log types.Log) (*IbchandlerAcknowledgePacket, error) {
 	event := new(IbchandlerAcknowledgePacket)
 	if err := _Ibchandler.contract.UnpackLog(event, "AcknowledgePacket", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -981,7 +976,7 @@ type IbchandlerRecvPacket struct {
 
 // FilterRecvPacket is a free log retrieval operation binding the contract event 0x346f4351ee865d86a679d00f3995f0520f803d3a227604af08430e26e9345a7a.
 //
-// Solidity: event RecvPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet)
+// Solidity: event RecvPacket(PacketData packet)
 func (_Ibchandler *IbchandlerFilterer) FilterRecvPacket(opts *bind.FilterOpts) (*IbchandlerRecvPacketIterator, error) {
 
 	logs, sub, err := _Ibchandler.contract.FilterLogs(opts, "RecvPacket")
@@ -993,7 +988,7 @@ func (_Ibchandler *IbchandlerFilterer) FilterRecvPacket(opts *bind.FilterOpts) (
 
 // WatchRecvPacket is a free log subscription operation binding the contract event 0x346f4351ee865d86a679d00f3995f0520f803d3a227604af08430e26e9345a7a.
 //
-// Solidity: event RecvPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet)
+// Solidity: event RecvPacket(PacketData packet)
 func (_Ibchandler *IbchandlerFilterer) WatchRecvPacket(opts *bind.WatchOpts, sink chan<- *IbchandlerRecvPacket) (event.Subscription, error) {
 
 	logs, sub, err := _Ibchandler.contract.WatchLogs(opts, "RecvPacket")
@@ -1030,13 +1025,12 @@ func (_Ibchandler *IbchandlerFilterer) WatchRecvPacket(opts *bind.WatchOpts, sin
 
 // ParseRecvPacket is a log parse operation binding the contract event 0x346f4351ee865d86a679d00f3995f0520f803d3a227604af08430e26e9345a7a.
 //
-// Solidity: event RecvPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet)
+// Solidity: event RecvPacket(PacketData packet)
 func (_Ibchandler *IbchandlerFilterer) ParseRecvPacket(log types.Log) (*IbchandlerRecvPacket, error) {
 	event := new(IbchandlerRecvPacket)
 	if err := _Ibchandler.contract.UnpackLog(event, "RecvPacket", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -1115,7 +1109,7 @@ type IbchandlerSendPacket struct {
 
 // FilterSendPacket is a free log retrieval operation binding the contract event 0xe701f25bda8992b211749f81adb9a8ea6e8cf8a3c9f2e29ed496e6c5f059154c.
 //
-// Solidity: event SendPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet)
+// Solidity: event SendPacket(PacketData packet)
 func (_Ibchandler *IbchandlerFilterer) FilterSendPacket(opts *bind.FilterOpts) (*IbchandlerSendPacketIterator, error) {
 
 	logs, sub, err := _Ibchandler.contract.FilterLogs(opts, "SendPacket")
@@ -1127,7 +1121,7 @@ func (_Ibchandler *IbchandlerFilterer) FilterSendPacket(opts *bind.FilterOpts) (
 
 // WatchSendPacket is a free log subscription operation binding the contract event 0xe701f25bda8992b211749f81adb9a8ea6e8cf8a3c9f2e29ed496e6c5f059154c.
 //
-// Solidity: event SendPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet)
+// Solidity: event SendPacket(PacketData packet)
 func (_Ibchandler *IbchandlerFilterer) WatchSendPacket(opts *bind.WatchOpts, sink chan<- *IbchandlerSendPacket) (event.Subscription, error) {
 
 	logs, sub, err := _Ibchandler.contract.WatchLogs(opts, "SendPacket")
@@ -1164,13 +1158,12 @@ func (_Ibchandler *IbchandlerFilterer) WatchSendPacket(opts *bind.WatchOpts, sin
 
 // ParseSendPacket is a log parse operation binding the contract event 0xe701f25bda8992b211749f81adb9a8ea6e8cf8a3c9f2e29ed496e6c5f059154c.
 //
-// Solidity: event SendPacket((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet)
+// Solidity: event SendPacket(PacketData packet)
 func (_Ibchandler *IbchandlerFilterer) ParseSendPacket(log types.Log) (*IbchandlerSendPacket, error) {
 	event := new(IbchandlerSendPacket)
 	if err := _Ibchandler.contract.UnpackLog(event, "SendPacket", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -1307,6 +1300,5 @@ func (_Ibchandler *IbchandlerFilterer) ParseWriteAcknowledgement(log types.Log) 
 	if err := _Ibchandler.contract.UnpackLog(event, "WriteAcknowledgement", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }

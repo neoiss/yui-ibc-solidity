@@ -17,7 +17,6 @@ require (
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/tsdb v0.7.1 // indirect
-	github.com/regen-network/cosmos-proto v0.3.1 // indirect
 	github.com/rs/cors v1.7.0 // indirect
 	github.com/stretchr/testify v1.7.0
 	github.com/tyler-smith/go-bip39 v1.0.1-0.20181017060643-dbb3b84ba2ef
@@ -27,4 +26,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
+replace (
+	github.com/ethereum/go-ethereum => github.com/ethereum/go-ethereum v1.9.10
+	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
+)

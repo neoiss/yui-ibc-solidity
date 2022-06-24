@@ -20,6 +20,7 @@ var (
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
+	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
@@ -197,7 +198,7 @@ func bindIbchost(address common.Address, caller bind.ContractCaller, transactor 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Ibchost *IbchostRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Ibchost *IbchostRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _Ibchost.Contract.IbchostCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -216,7 +217,7 @@ func (_Ibchost *IbchostRaw) Transact(opts *bind.TransactOpts, method string, par
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Ibchost *IbchostCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Ibchost *IbchostCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _Ibchost.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -233,628 +234,558 @@ func (_Ibchost *IbchostTransactorRaw) Transact(opts *bind.TransactOpts, method s
 
 // AuthenticateCapability is a free data retrieval call binding the contract method 0x2d46858f.
 //
-// Solidity: function authenticateCapability(bytes name, address addr) view returns(bool)
+// Solidity: function authenticateCapability(bytes name, address addr) constant returns(bool)
 func (_Ibchost *IbchostCaller) AuthenticateCapability(opts *bind.CallOpts, name []byte, addr common.Address) (bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "authenticateCapability", name, addr)
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "authenticateCapability", name, addr)
+	return *ret0, err
 }
 
 // AuthenticateCapability is a free data retrieval call binding the contract method 0x2d46858f.
 //
-// Solidity: function authenticateCapability(bytes name, address addr) view returns(bool)
+// Solidity: function authenticateCapability(bytes name, address addr) constant returns(bool)
 func (_Ibchost *IbchostSession) AuthenticateCapability(name []byte, addr common.Address) (bool, error) {
 	return _Ibchost.Contract.AuthenticateCapability(&_Ibchost.CallOpts, name, addr)
 }
 
 // AuthenticateCapability is a free data retrieval call binding the contract method 0x2d46858f.
 //
-// Solidity: function authenticateCapability(bytes name, address addr) view returns(bool)
+// Solidity: function authenticateCapability(bytes name, address addr) constant returns(bool)
 func (_Ibchost *IbchostCallerSession) AuthenticateCapability(name []byte, addr common.Address) (bool, error) {
 	return _Ibchost.Contract.AuthenticateCapability(&_Ibchost.CallOpts, name, addr)
 }
 
 // GetChannel is a free data retrieval call binding the contract method 0x3000217a.
 //
-// Solidity: function getChannel(string portId, string channelId) view returns((uint8,uint8,(string,string),string[],string) channel, bool)
+// Solidity: function getChannel(string portId, string channelId) constant returns(ChannelData channel, bool)
 func (_Ibchost *IbchostCaller) GetChannel(opts *bind.CallOpts, portId string, channelId string) (ChannelData, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getChannel", portId, channelId)
-
-	if err != nil {
-		return *new(ChannelData), *new(bool), err
+	var (
+		ret0 = new(ChannelData)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new(ChannelData)).(*ChannelData)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getChannel", portId, channelId)
+	return *ret0, *ret1, err
 }
 
 // GetChannel is a free data retrieval call binding the contract method 0x3000217a.
 //
-// Solidity: function getChannel(string portId, string channelId) view returns((uint8,uint8,(string,string),string[],string) channel, bool)
+// Solidity: function getChannel(string portId, string channelId) constant returns(ChannelData channel, bool)
 func (_Ibchost *IbchostSession) GetChannel(portId string, channelId string) (ChannelData, bool, error) {
 	return _Ibchost.Contract.GetChannel(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetChannel is a free data retrieval call binding the contract method 0x3000217a.
 //
-// Solidity: function getChannel(string portId, string channelId) view returns((uint8,uint8,(string,string),string[],string) channel, bool)
+// Solidity: function getChannel(string portId, string channelId) constant returns(ChannelData channel, bool)
 func (_Ibchost *IbchostCallerSession) GetChannel(portId string, channelId string) (ChannelData, bool, error) {
 	return _Ibchost.Contract.GetChannel(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetClientImpl is a free data retrieval call binding the contract method 0xbfe7aa66.
 //
-// Solidity: function getClientImpl(string clientType) view returns(address, bool)
+// Solidity: function getClientImpl(string clientType) constant returns(address, bool)
 func (_Ibchost *IbchostCaller) GetClientImpl(opts *bind.CallOpts, clientType string) (common.Address, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getClientImpl", clientType)
-
-	if err != nil {
-		return *new(common.Address), *new(bool), err
+	var (
+		ret0 = new(common.Address)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getClientImpl", clientType)
+	return *ret0, *ret1, err
 }
 
 // GetClientImpl is a free data retrieval call binding the contract method 0xbfe7aa66.
 //
-// Solidity: function getClientImpl(string clientType) view returns(address, bool)
+// Solidity: function getClientImpl(string clientType) constant returns(address, bool)
 func (_Ibchost *IbchostSession) GetClientImpl(clientType string) (common.Address, bool, error) {
 	return _Ibchost.Contract.GetClientImpl(&_Ibchost.CallOpts, clientType)
 }
 
 // GetClientImpl is a free data retrieval call binding the contract method 0xbfe7aa66.
 //
-// Solidity: function getClientImpl(string clientType) view returns(address, bool)
+// Solidity: function getClientImpl(string clientType) constant returns(address, bool)
 func (_Ibchost *IbchostCallerSession) GetClientImpl(clientType string) (common.Address, bool, error) {
 	return _Ibchost.Contract.GetClientImpl(&_Ibchost.CallOpts, clientType)
 }
 
 // GetClientState is a free data retrieval call binding the contract method 0x76c81c42.
 //
-// Solidity: function getClientState(string clientId) view returns(bytes, bool)
+// Solidity: function getClientState(string clientId) constant returns(bytes, bool)
 func (_Ibchost *IbchostCaller) GetClientState(opts *bind.CallOpts, clientId string) ([]byte, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getClientState", clientId)
-
-	if err != nil {
-		return *new([]byte), *new(bool), err
+	var (
+		ret0 = new([]byte)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getClientState", clientId)
+	return *ret0, *ret1, err
 }
 
 // GetClientState is a free data retrieval call binding the contract method 0x76c81c42.
 //
-// Solidity: function getClientState(string clientId) view returns(bytes, bool)
+// Solidity: function getClientState(string clientId) constant returns(bytes, bool)
 func (_Ibchost *IbchostSession) GetClientState(clientId string) ([]byte, bool, error) {
 	return _Ibchost.Contract.GetClientState(&_Ibchost.CallOpts, clientId)
 }
 
 // GetClientState is a free data retrieval call binding the contract method 0x76c81c42.
 //
-// Solidity: function getClientState(string clientId) view returns(bytes, bool)
+// Solidity: function getClientState(string clientId) constant returns(bytes, bool)
 func (_Ibchost *IbchostCallerSession) GetClientState(clientId string) ([]byte, bool, error) {
 	return _Ibchost.Contract.GetClientState(&_Ibchost.CallOpts, clientId)
 }
 
 // GetClientType is a free data retrieval call binding the contract method 0x84515f5d.
 //
-// Solidity: function getClientType(string clientId) view returns(string)
+// Solidity: function getClientType(string clientId) constant returns(string)
 func (_Ibchost *IbchostCaller) GetClientType(opts *bind.CallOpts, clientId string) (string, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getClientType", clientId)
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "getClientType", clientId)
+	return *ret0, err
 }
 
 // GetClientType is a free data retrieval call binding the contract method 0x84515f5d.
 //
-// Solidity: function getClientType(string clientId) view returns(string)
+// Solidity: function getClientType(string clientId) constant returns(string)
 func (_Ibchost *IbchostSession) GetClientType(clientId string) (string, error) {
 	return _Ibchost.Contract.GetClientType(&_Ibchost.CallOpts, clientId)
 }
 
 // GetClientType is a free data retrieval call binding the contract method 0x84515f5d.
 //
-// Solidity: function getClientType(string clientId) view returns(string)
+// Solidity: function getClientType(string clientId) constant returns(string)
 func (_Ibchost *IbchostCallerSession) GetClientType(clientId string) (string, error) {
 	return _Ibchost.Contract.GetClientType(&_Ibchost.CallOpts, clientId)
 }
 
 // GetConnection is a free data retrieval call binding the contract method 0x27711a69.
 //
-// Solidity: function getConnection(string connectionId) view returns((string,(string,string[])[],uint8,(string,string,(bytes)),uint64) connection, bool)
+// Solidity: function getConnection(string connectionId) constant returns(ConnectionEndData connection, bool)
 func (_Ibchost *IbchostCaller) GetConnection(opts *bind.CallOpts, connectionId string) (ConnectionEndData, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getConnection", connectionId)
-
-	if err != nil {
-		return *new(ConnectionEndData), *new(bool), err
+	var (
+		ret0 = new(ConnectionEndData)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new(ConnectionEndData)).(*ConnectionEndData)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getConnection", connectionId)
+	return *ret0, *ret1, err
 }
 
 // GetConnection is a free data retrieval call binding the contract method 0x27711a69.
 //
-// Solidity: function getConnection(string connectionId) view returns((string,(string,string[])[],uint8,(string,string,(bytes)),uint64) connection, bool)
+// Solidity: function getConnection(string connectionId) constant returns(ConnectionEndData connection, bool)
 func (_Ibchost *IbchostSession) GetConnection(connectionId string) (ConnectionEndData, bool, error) {
 	return _Ibchost.Contract.GetConnection(&_Ibchost.CallOpts, connectionId)
 }
 
 // GetConnection is a free data retrieval call binding the contract method 0x27711a69.
 //
-// Solidity: function getConnection(string connectionId) view returns((string,(string,string[])[],uint8,(string,string,(bytes)),uint64) connection, bool)
+// Solidity: function getConnection(string connectionId) constant returns(ConnectionEndData connection, bool)
 func (_Ibchost *IbchostCallerSession) GetConnection(connectionId string) (ConnectionEndData, bool, error) {
 	return _Ibchost.Contract.GetConnection(&_Ibchost.CallOpts, connectionId)
 }
 
 // GetConsensusState is a free data retrieval call binding the contract method 0x6cf44bf4.
 //
-// Solidity: function getConsensusState(string clientId, (uint64,uint64) height) view returns(bytes, bool)
+// Solidity: function getConsensusState(string clientId, HeightData height) constant returns(bytes, bool)
 func (_Ibchost *IbchostCaller) GetConsensusState(opts *bind.CallOpts, clientId string, height HeightData) ([]byte, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getConsensusState", clientId, height)
-
-	if err != nil {
-		return *new([]byte), *new(bool), err
+	var (
+		ret0 = new([]byte)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getConsensusState", clientId, height)
+	return *ret0, *ret1, err
 }
 
 // GetConsensusState is a free data retrieval call binding the contract method 0x6cf44bf4.
 //
-// Solidity: function getConsensusState(string clientId, (uint64,uint64) height) view returns(bytes, bool)
+// Solidity: function getConsensusState(string clientId, HeightData height) constant returns(bytes, bool)
 func (_Ibchost *IbchostSession) GetConsensusState(clientId string, height HeightData) ([]byte, bool, error) {
 	return _Ibchost.Contract.GetConsensusState(&_Ibchost.CallOpts, clientId, height)
 }
 
 // GetConsensusState is a free data retrieval call binding the contract method 0x6cf44bf4.
 //
-// Solidity: function getConsensusState(string clientId, (uint64,uint64) height) view returns(bytes, bool)
+// Solidity: function getConsensusState(string clientId, HeightData height) constant returns(bytes, bool)
 func (_Ibchost *IbchostCallerSession) GetConsensusState(clientId string, height HeightData) ([]byte, bool, error) {
 	return _Ibchost.Contract.GetConsensusState(&_Ibchost.CallOpts, clientId, height)
 }
 
 // GetExpectedTimePerBlock is a free data retrieval call binding the contract method 0xec75d829.
 //
-// Solidity: function getExpectedTimePerBlock() view returns(uint64)
+// Solidity: function getExpectedTimePerBlock() constant returns(uint64)
 func (_Ibchost *IbchostCaller) GetExpectedTimePerBlock(opts *bind.CallOpts) (uint64, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getExpectedTimePerBlock")
-
-	if err != nil {
-		return *new(uint64), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint64)).(*uint64)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint64)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "getExpectedTimePerBlock")
+	return *ret0, err
 }
 
 // GetExpectedTimePerBlock is a free data retrieval call binding the contract method 0xec75d829.
 //
-// Solidity: function getExpectedTimePerBlock() view returns(uint64)
+// Solidity: function getExpectedTimePerBlock() constant returns(uint64)
 func (_Ibchost *IbchostSession) GetExpectedTimePerBlock() (uint64, error) {
 	return _Ibchost.Contract.GetExpectedTimePerBlock(&_Ibchost.CallOpts)
 }
 
 // GetExpectedTimePerBlock is a free data retrieval call binding the contract method 0xec75d829.
 //
-// Solidity: function getExpectedTimePerBlock() view returns(uint64)
+// Solidity: function getExpectedTimePerBlock() constant returns(uint64)
 func (_Ibchost *IbchostCallerSession) GetExpectedTimePerBlock() (uint64, error) {
 	return _Ibchost.Contract.GetExpectedTimePerBlock(&_Ibchost.CallOpts)
 }
 
 // GetModuleOwner is a free data retrieval call binding the contract method 0xace6cfb7.
 //
-// Solidity: function getModuleOwner(bytes name) view returns(address, bool)
+// Solidity: function getModuleOwner(bytes name) constant returns(address, bool)
 func (_Ibchost *IbchostCaller) GetModuleOwner(opts *bind.CallOpts, name []byte) (common.Address, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getModuleOwner", name)
-
-	if err != nil {
-		return *new(common.Address), *new(bool), err
+	var (
+		ret0 = new(common.Address)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getModuleOwner", name)
+	return *ret0, *ret1, err
 }
 
 // GetModuleOwner is a free data retrieval call binding the contract method 0xace6cfb7.
 //
-// Solidity: function getModuleOwner(bytes name) view returns(address, bool)
+// Solidity: function getModuleOwner(bytes name) constant returns(address, bool)
 func (_Ibchost *IbchostSession) GetModuleOwner(name []byte) (common.Address, bool, error) {
 	return _Ibchost.Contract.GetModuleOwner(&_Ibchost.CallOpts, name)
 }
 
 // GetModuleOwner is a free data retrieval call binding the contract method 0xace6cfb7.
 //
-// Solidity: function getModuleOwner(bytes name) view returns(address, bool)
+// Solidity: function getModuleOwner(bytes name) constant returns(address, bool)
 func (_Ibchost *IbchostCallerSession) GetModuleOwner(name []byte) (common.Address, bool, error) {
 	return _Ibchost.Contract.GetModuleOwner(&_Ibchost.CallOpts, name)
 }
 
 // GetNextSequenceAck is a free data retrieval call binding the contract method 0x4e08c6f3.
 //
-// Solidity: function getNextSequenceAck(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceAck(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostCaller) GetNextSequenceAck(opts *bind.CallOpts, portId string, channelId string) (uint64, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getNextSequenceAck", portId, channelId)
-
-	if err != nil {
-		return *new(uint64), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint64)).(*uint64)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint64)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "getNextSequenceAck", portId, channelId)
+	return *ret0, err
 }
 
 // GetNextSequenceAck is a free data retrieval call binding the contract method 0x4e08c6f3.
 //
-// Solidity: function getNextSequenceAck(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceAck(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostSession) GetNextSequenceAck(portId string, channelId string) (uint64, error) {
 	return _Ibchost.Contract.GetNextSequenceAck(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetNextSequenceAck is a free data retrieval call binding the contract method 0x4e08c6f3.
 //
-// Solidity: function getNextSequenceAck(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceAck(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostCallerSession) GetNextSequenceAck(portId string, channelId string) (uint64, error) {
 	return _Ibchost.Contract.GetNextSequenceAck(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetNextSequenceRecv is a free data retrieval call binding the contract method 0xe211bb06.
 //
-// Solidity: function getNextSequenceRecv(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceRecv(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostCaller) GetNextSequenceRecv(opts *bind.CallOpts, portId string, channelId string) (uint64, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getNextSequenceRecv", portId, channelId)
-
-	if err != nil {
-		return *new(uint64), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint64)).(*uint64)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint64)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "getNextSequenceRecv", portId, channelId)
+	return *ret0, err
 }
 
 // GetNextSequenceRecv is a free data retrieval call binding the contract method 0xe211bb06.
 //
-// Solidity: function getNextSequenceRecv(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceRecv(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostSession) GetNextSequenceRecv(portId string, channelId string) (uint64, error) {
 	return _Ibchost.Contract.GetNextSequenceRecv(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetNextSequenceRecv is a free data retrieval call binding the contract method 0xe211bb06.
 //
-// Solidity: function getNextSequenceRecv(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceRecv(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostCallerSession) GetNextSequenceRecv(portId string, channelId string) (uint64, error) {
 	return _Ibchost.Contract.GetNextSequenceRecv(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetNextSequenceSend is a free data retrieval call binding the contract method 0x582418b6.
 //
-// Solidity: function getNextSequenceSend(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceSend(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostCaller) GetNextSequenceSend(opts *bind.CallOpts, portId string, channelId string) (uint64, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getNextSequenceSend", portId, channelId)
-
-	if err != nil {
-		return *new(uint64), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint64)).(*uint64)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint64)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "getNextSequenceSend", portId, channelId)
+	return *ret0, err
 }
 
 // GetNextSequenceSend is a free data retrieval call binding the contract method 0x582418b6.
 //
-// Solidity: function getNextSequenceSend(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceSend(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostSession) GetNextSequenceSend(portId string, channelId string) (uint64, error) {
 	return _Ibchost.Contract.GetNextSequenceSend(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetNextSequenceSend is a free data retrieval call binding the contract method 0x582418b6.
 //
-// Solidity: function getNextSequenceSend(string portId, string channelId) view returns(uint64)
+// Solidity: function getNextSequenceSend(string portId, string channelId) constant returns(uint64)
 func (_Ibchost *IbchostCallerSession) GetNextSequenceSend(portId string, channelId string) (uint64, error) {
 	return _Ibchost.Contract.GetNextSequenceSend(&_Ibchost.CallOpts, portId, channelId)
 }
 
 // GetPacketAcknowledgementCommitment is a free data retrieval call binding the contract method 0x71f56c59.
 //
-// Solidity: function getPacketAcknowledgementCommitment(string portId, string channelId, uint64 sequence) view returns(bytes32, bool)
+// Solidity: function getPacketAcknowledgementCommitment(string portId, string channelId, uint64 sequence) constant returns(bytes32, bool)
 func (_Ibchost *IbchostCaller) GetPacketAcknowledgementCommitment(opts *bind.CallOpts, portId string, channelId string, sequence uint64) ([32]byte, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getPacketAcknowledgementCommitment", portId, channelId, sequence)
-
-	if err != nil {
-		return *new([32]byte), *new(bool), err
+	var (
+		ret0 = new([32]byte)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getPacketAcknowledgementCommitment", portId, channelId, sequence)
+	return *ret0, *ret1, err
 }
 
 // GetPacketAcknowledgementCommitment is a free data retrieval call binding the contract method 0x71f56c59.
 //
-// Solidity: function getPacketAcknowledgementCommitment(string portId, string channelId, uint64 sequence) view returns(bytes32, bool)
+// Solidity: function getPacketAcknowledgementCommitment(string portId, string channelId, uint64 sequence) constant returns(bytes32, bool)
 func (_Ibchost *IbchostSession) GetPacketAcknowledgementCommitment(portId string, channelId string, sequence uint64) ([32]byte, bool, error) {
 	return _Ibchost.Contract.GetPacketAcknowledgementCommitment(&_Ibchost.CallOpts, portId, channelId, sequence)
 }
 
 // GetPacketAcknowledgementCommitment is a free data retrieval call binding the contract method 0x71f56c59.
 //
-// Solidity: function getPacketAcknowledgementCommitment(string portId, string channelId, uint64 sequence) view returns(bytes32, bool)
+// Solidity: function getPacketAcknowledgementCommitment(string portId, string channelId, uint64 sequence) constant returns(bytes32, bool)
 func (_Ibchost *IbchostCallerSession) GetPacketAcknowledgementCommitment(portId string, channelId string, sequence uint64) ([32]byte, bool, error) {
 	return _Ibchost.Contract.GetPacketAcknowledgementCommitment(&_Ibchost.CallOpts, portId, channelId, sequence)
 }
 
 // GetPacketCommitment is a free data retrieval call binding the contract method 0x61fc5e7b.
 //
-// Solidity: function getPacketCommitment(string portId, string channelId, uint64 sequence) view returns(bytes32, bool)
+// Solidity: function getPacketCommitment(string portId, string channelId, uint64 sequence) constant returns(bytes32, bool)
 func (_Ibchost *IbchostCaller) GetPacketCommitment(opts *bind.CallOpts, portId string, channelId string, sequence uint64) ([32]byte, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getPacketCommitment", portId, channelId, sequence)
-
-	if err != nil {
-		return *new([32]byte), *new(bool), err
+	var (
+		ret0 = new([32]byte)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getPacketCommitment", portId, channelId, sequence)
+	return *ret0, *ret1, err
 }
 
 // GetPacketCommitment is a free data retrieval call binding the contract method 0x61fc5e7b.
 //
-// Solidity: function getPacketCommitment(string portId, string channelId, uint64 sequence) view returns(bytes32, bool)
+// Solidity: function getPacketCommitment(string portId, string channelId, uint64 sequence) constant returns(bytes32, bool)
 func (_Ibchost *IbchostSession) GetPacketCommitment(portId string, channelId string, sequence uint64) ([32]byte, bool, error) {
 	return _Ibchost.Contract.GetPacketCommitment(&_Ibchost.CallOpts, portId, channelId, sequence)
 }
 
 // GetPacketCommitment is a free data retrieval call binding the contract method 0x61fc5e7b.
 //
-// Solidity: function getPacketCommitment(string portId, string channelId, uint64 sequence) view returns(bytes32, bool)
+// Solidity: function getPacketCommitment(string portId, string channelId, uint64 sequence) constant returns(bytes32, bool)
 func (_Ibchost *IbchostCallerSession) GetPacketCommitment(portId string, channelId string, sequence uint64) ([32]byte, bool, error) {
 	return _Ibchost.Contract.GetPacketCommitment(&_Ibchost.CallOpts, portId, channelId, sequence)
 }
 
 // GetProcessedHeight is a free data retrieval call binding the contract method 0x1172938a.
 //
-// Solidity: function getProcessedHeight(string clientId, (uint64,uint64) height) view returns(uint256, bool)
+// Solidity: function getProcessedHeight(string clientId, HeightData height) constant returns(uint256, bool)
 func (_Ibchost *IbchostCaller) GetProcessedHeight(opts *bind.CallOpts, clientId string, height HeightData) (*big.Int, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getProcessedHeight", clientId, height)
-
-	if err != nil {
-		return *new(*big.Int), *new(bool), err
+	var (
+		ret0 = new(*big.Int)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getProcessedHeight", clientId, height)
+	return *ret0, *ret1, err
 }
 
 // GetProcessedHeight is a free data retrieval call binding the contract method 0x1172938a.
 //
-// Solidity: function getProcessedHeight(string clientId, (uint64,uint64) height) view returns(uint256, bool)
+// Solidity: function getProcessedHeight(string clientId, HeightData height) constant returns(uint256, bool)
 func (_Ibchost *IbchostSession) GetProcessedHeight(clientId string, height HeightData) (*big.Int, bool, error) {
 	return _Ibchost.Contract.GetProcessedHeight(&_Ibchost.CallOpts, clientId, height)
 }
 
 // GetProcessedHeight is a free data retrieval call binding the contract method 0x1172938a.
 //
-// Solidity: function getProcessedHeight(string clientId, (uint64,uint64) height) view returns(uint256, bool)
+// Solidity: function getProcessedHeight(string clientId, HeightData height) constant returns(uint256, bool)
 func (_Ibchost *IbchostCallerSession) GetProcessedHeight(clientId string, height HeightData) (*big.Int, bool, error) {
 	return _Ibchost.Contract.GetProcessedHeight(&_Ibchost.CallOpts, clientId, height)
 }
 
 // GetProcessedTime is a free data retrieval call binding the contract method 0xc040ff75.
 //
-// Solidity: function getProcessedTime(string clientId, (uint64,uint64) height) view returns(uint256, bool)
+// Solidity: function getProcessedTime(string clientId, HeightData height) constant returns(uint256, bool)
 func (_Ibchost *IbchostCaller) GetProcessedTime(opts *bind.CallOpts, clientId string, height HeightData) (*big.Int, bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "getProcessedTime", clientId, height)
-
-	if err != nil {
-		return *new(*big.Int), *new(bool), err
+	var (
+		ret0 = new(*big.Int)
+		ret1 = new(bool)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
 	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	out1 := *abi.ConvertType(out[1], new(bool)).(*bool)
-
-	return out0, out1, err
-
+	err := _Ibchost.contract.Call(opts, out, "getProcessedTime", clientId, height)
+	return *ret0, *ret1, err
 }
 
 // GetProcessedTime is a free data retrieval call binding the contract method 0xc040ff75.
 //
-// Solidity: function getProcessedTime(string clientId, (uint64,uint64) height) view returns(uint256, bool)
+// Solidity: function getProcessedTime(string clientId, HeightData height) constant returns(uint256, bool)
 func (_Ibchost *IbchostSession) GetProcessedTime(clientId string, height HeightData) (*big.Int, bool, error) {
 	return _Ibchost.Contract.GetProcessedTime(&_Ibchost.CallOpts, clientId, height)
 }
 
 // GetProcessedTime is a free data retrieval call binding the contract method 0xc040ff75.
 //
-// Solidity: function getProcessedTime(string clientId, (uint64,uint64) height) view returns(uint256, bool)
+// Solidity: function getProcessedTime(string clientId, HeightData height) constant returns(uint256, bool)
 func (_Ibchost *IbchostCallerSession) GetProcessedTime(clientId string, height HeightData) (*big.Int, bool, error) {
 	return _Ibchost.Contract.GetProcessedTime(&_Ibchost.CallOpts, clientId, height)
 }
 
 // HasPacketReceipt is a free data retrieval call binding the contract method 0x5a9afac3.
 //
-// Solidity: function hasPacketReceipt(string portId, string channelId, uint64 sequence) view returns(bool)
+// Solidity: function hasPacketReceipt(string portId, string channelId, uint64 sequence) constant returns(bool)
 func (_Ibchost *IbchostCaller) HasPacketReceipt(opts *bind.CallOpts, portId string, channelId string, sequence uint64) (bool, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "hasPacketReceipt", portId, channelId, sequence)
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "hasPacketReceipt", portId, channelId, sequence)
+	return *ret0, err
 }
 
 // HasPacketReceipt is a free data retrieval call binding the contract method 0x5a9afac3.
 //
-// Solidity: function hasPacketReceipt(string portId, string channelId, uint64 sequence) view returns(bool)
+// Solidity: function hasPacketReceipt(string portId, string channelId, uint64 sequence) constant returns(bool)
 func (_Ibchost *IbchostSession) HasPacketReceipt(portId string, channelId string, sequence uint64) (bool, error) {
 	return _Ibchost.Contract.HasPacketReceipt(&_Ibchost.CallOpts, portId, channelId, sequence)
 }
 
 // HasPacketReceipt is a free data retrieval call binding the contract method 0x5a9afac3.
 //
-// Solidity: function hasPacketReceipt(string portId, string channelId, uint64 sequence) view returns(bool)
+// Solidity: function hasPacketReceipt(string portId, string channelId, uint64 sequence) constant returns(bool)
 func (_Ibchost *IbchostCallerSession) HasPacketReceipt(portId string, channelId string, sequence uint64) (bool, error) {
 	return _Ibchost.Contract.HasPacketReceipt(&_Ibchost.CallOpts, portId, channelId, sequence)
 }
 
 // MakePacketAcknowledgementCommitment is a free data retrieval call binding the contract method 0x8a889658.
 //
-// Solidity: function makePacketAcknowledgementCommitment(bytes acknowledgement) pure returns(bytes32)
+// Solidity: function makePacketAcknowledgementCommitment(bytes acknowledgement) constant returns(bytes32)
 func (_Ibchost *IbchostCaller) MakePacketAcknowledgementCommitment(opts *bind.CallOpts, acknowledgement []byte) ([32]byte, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "makePacketAcknowledgementCommitment", acknowledgement)
-
-	if err != nil {
-		return *new([32]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-
-	return out0, err
-
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "makePacketAcknowledgementCommitment", acknowledgement)
+	return *ret0, err
 }
 
 // MakePacketAcknowledgementCommitment is a free data retrieval call binding the contract method 0x8a889658.
 //
-// Solidity: function makePacketAcknowledgementCommitment(bytes acknowledgement) pure returns(bytes32)
+// Solidity: function makePacketAcknowledgementCommitment(bytes acknowledgement) constant returns(bytes32)
 func (_Ibchost *IbchostSession) MakePacketAcknowledgementCommitment(acknowledgement []byte) ([32]byte, error) {
 	return _Ibchost.Contract.MakePacketAcknowledgementCommitment(&_Ibchost.CallOpts, acknowledgement)
 }
 
 // MakePacketAcknowledgementCommitment is a free data retrieval call binding the contract method 0x8a889658.
 //
-// Solidity: function makePacketAcknowledgementCommitment(bytes acknowledgement) pure returns(bytes32)
+// Solidity: function makePacketAcknowledgementCommitment(bytes acknowledgement) constant returns(bytes32)
 func (_Ibchost *IbchostCallerSession) MakePacketAcknowledgementCommitment(acknowledgement []byte) ([32]byte, error) {
 	return _Ibchost.Contract.MakePacketAcknowledgementCommitment(&_Ibchost.CallOpts, acknowledgement)
 }
 
 // MakePacketCommitment is a free data retrieval call binding the contract method 0x12a68750.
 //
-// Solidity: function makePacketCommitment((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) pure returns(bytes32)
+// Solidity: function makePacketCommitment(PacketData packet) constant returns(bytes32)
 func (_Ibchost *IbchostCaller) MakePacketCommitment(opts *bind.CallOpts, packet PacketData) ([32]byte, error) {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "makePacketCommitment", packet)
-
-	if err != nil {
-		return *new([32]byte), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-
-	return out0, err
-
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _Ibchost.contract.Call(opts, out, "makePacketCommitment", packet)
+	return *ret0, err
 }
 
 // MakePacketCommitment is a free data retrieval call binding the contract method 0x12a68750.
 //
-// Solidity: function makePacketCommitment((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) pure returns(bytes32)
+// Solidity: function makePacketCommitment(PacketData packet) constant returns(bytes32)
 func (_Ibchost *IbchostSession) MakePacketCommitment(packet PacketData) ([32]byte, error) {
 	return _Ibchost.Contract.MakePacketCommitment(&_Ibchost.CallOpts, packet)
 }
 
 // MakePacketCommitment is a free data retrieval call binding the contract method 0x12a68750.
 //
-// Solidity: function makePacketCommitment((uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) pure returns(bytes32)
+// Solidity: function makePacketCommitment(PacketData packet) constant returns(bytes32)
 func (_Ibchost *IbchostCallerSession) MakePacketCommitment(packet PacketData) ([32]byte, error) {
 	return _Ibchost.Contract.MakePacketCommitment(&_Ibchost.CallOpts, packet)
 }
 
 // OnlyIBCModule is a free data retrieval call binding the contract method 0x1649a4f7.
 //
-// Solidity: function onlyIBCModule() view returns()
+// Solidity: function onlyIBCModule() constant returns()
 func (_Ibchost *IbchostCaller) OnlyIBCModule(opts *bind.CallOpts) error {
-	var out []interface{}
-	err := _Ibchost.contract.Call(opts, &out, "onlyIBCModule")
-
-	if err != nil {
-		return err
-	}
-
+	var ()
+	out := &[]interface{}{}
+	err := _Ibchost.contract.Call(opts, out, "onlyIBCModule")
 	return err
-
 }
 
 // OnlyIBCModule is a free data retrieval call binding the contract method 0x1649a4f7.
 //
-// Solidity: function onlyIBCModule() view returns()
+// Solidity: function onlyIBCModule() constant returns()
 func (_Ibchost *IbchostSession) OnlyIBCModule() error {
 	return _Ibchost.Contract.OnlyIBCModule(&_Ibchost.CallOpts)
 }
 
 // OnlyIBCModule is a free data retrieval call binding the contract method 0x1649a4f7.
 //
-// Solidity: function onlyIBCModule() view returns()
+// Solidity: function onlyIBCModule() constant returns()
 func (_Ibchost *IbchostCallerSession) OnlyIBCModule() error {
 	return _Ibchost.Contract.OnlyIBCModule(&_Ibchost.CallOpts)
 }
@@ -966,21 +897,21 @@ func (_Ibchost *IbchostTransactorSession) GenerateConnectionIdentifier() (*types
 
 // SetChannel is a paid mutator transaction binding the contract method 0x3564d550.
 //
-// Solidity: function setChannel(string portId, string channelId, (uint8,uint8,(string,string),string[],string) channel) returns()
+// Solidity: function setChannel(string portId, string channelId, ChannelData channel) returns()
 func (_Ibchost *IbchostTransactor) SetChannel(opts *bind.TransactOpts, portId string, channelId string, channel ChannelData) (*types.Transaction, error) {
 	return _Ibchost.contract.Transact(opts, "setChannel", portId, channelId, channel)
 }
 
 // SetChannel is a paid mutator transaction binding the contract method 0x3564d550.
 //
-// Solidity: function setChannel(string portId, string channelId, (uint8,uint8,(string,string),string[],string) channel) returns()
+// Solidity: function setChannel(string portId, string channelId, ChannelData channel) returns()
 func (_Ibchost *IbchostSession) SetChannel(portId string, channelId string, channel ChannelData) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetChannel(&_Ibchost.TransactOpts, portId, channelId, channel)
 }
 
 // SetChannel is a paid mutator transaction binding the contract method 0x3564d550.
 //
-// Solidity: function setChannel(string portId, string channelId, (uint8,uint8,(string,string),string[],string) channel) returns()
+// Solidity: function setChannel(string portId, string channelId, ChannelData channel) returns()
 func (_Ibchost *IbchostTransactorSession) SetChannel(portId string, channelId string, channel ChannelData) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetChannel(&_Ibchost.TransactOpts, portId, channelId, channel)
 }
@@ -1050,42 +981,42 @@ func (_Ibchost *IbchostTransactorSession) SetClientType(clientId string, clientT
 
 // SetConnection is a paid mutator transaction binding the contract method 0x2dbe1450.
 //
-// Solidity: function setConnection(string connectionId, (string,(string,string[])[],uint8,(string,string,(bytes)),uint64) connection) returns()
+// Solidity: function setConnection(string connectionId, ConnectionEndData connection) returns()
 func (_Ibchost *IbchostTransactor) SetConnection(opts *bind.TransactOpts, connectionId string, connection ConnectionEndData) (*types.Transaction, error) {
 	return _Ibchost.contract.Transact(opts, "setConnection", connectionId, connection)
 }
 
 // SetConnection is a paid mutator transaction binding the contract method 0x2dbe1450.
 //
-// Solidity: function setConnection(string connectionId, (string,(string,string[])[],uint8,(string,string,(bytes)),uint64) connection) returns()
+// Solidity: function setConnection(string connectionId, ConnectionEndData connection) returns()
 func (_Ibchost *IbchostSession) SetConnection(connectionId string, connection ConnectionEndData) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetConnection(&_Ibchost.TransactOpts, connectionId, connection)
 }
 
 // SetConnection is a paid mutator transaction binding the contract method 0x2dbe1450.
 //
-// Solidity: function setConnection(string connectionId, (string,(string,string[])[],uint8,(string,string,(bytes)),uint64) connection) returns()
+// Solidity: function setConnection(string connectionId, ConnectionEndData connection) returns()
 func (_Ibchost *IbchostTransactorSession) SetConnection(connectionId string, connection ConnectionEndData) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetConnection(&_Ibchost.TransactOpts, connectionId, connection)
 }
 
 // SetConsensusState is a paid mutator transaction binding the contract method 0xc48baca4.
 //
-// Solidity: function setConsensusState(string clientId, (uint64,uint64) height, bytes consensusStateBytes) returns()
+// Solidity: function setConsensusState(string clientId, HeightData height, bytes consensusStateBytes) returns()
 func (_Ibchost *IbchostTransactor) SetConsensusState(opts *bind.TransactOpts, clientId string, height HeightData, consensusStateBytes []byte) (*types.Transaction, error) {
 	return _Ibchost.contract.Transact(opts, "setConsensusState", clientId, height, consensusStateBytes)
 }
 
 // SetConsensusState is a paid mutator transaction binding the contract method 0xc48baca4.
 //
-// Solidity: function setConsensusState(string clientId, (uint64,uint64) height, bytes consensusStateBytes) returns()
+// Solidity: function setConsensusState(string clientId, HeightData height, bytes consensusStateBytes) returns()
 func (_Ibchost *IbchostSession) SetConsensusState(clientId string, height HeightData, consensusStateBytes []byte) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetConsensusState(&_Ibchost.TransactOpts, clientId, height, consensusStateBytes)
 }
 
 // SetConsensusState is a paid mutator transaction binding the contract method 0xc48baca4.
 //
-// Solidity: function setConsensusState(string clientId, (uint64,uint64) height, bytes consensusStateBytes) returns()
+// Solidity: function setConsensusState(string clientId, HeightData height, bytes consensusStateBytes) returns()
 func (_Ibchost *IbchostTransactorSession) SetConsensusState(clientId string, height HeightData, consensusStateBytes []byte) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetConsensusState(&_Ibchost.TransactOpts, clientId, height, consensusStateBytes)
 }
@@ -1218,21 +1149,21 @@ func (_Ibchost *IbchostTransactorSession) SetPacketAcknowledgementCommitment(por
 
 // SetPacketCommitment is a paid mutator transaction binding the contract method 0xb7ccdc57.
 //
-// Solidity: function setPacketCommitment(string portId, string channelId, uint64 sequence, (uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) returns()
+// Solidity: function setPacketCommitment(string portId, string channelId, uint64 sequence, PacketData packet) returns()
 func (_Ibchost *IbchostTransactor) SetPacketCommitment(opts *bind.TransactOpts, portId string, channelId string, sequence uint64, packet PacketData) (*types.Transaction, error) {
 	return _Ibchost.contract.Transact(opts, "setPacketCommitment", portId, channelId, sequence, packet)
 }
 
 // SetPacketCommitment is a paid mutator transaction binding the contract method 0xb7ccdc57.
 //
-// Solidity: function setPacketCommitment(string portId, string channelId, uint64 sequence, (uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) returns()
+// Solidity: function setPacketCommitment(string portId, string channelId, uint64 sequence, PacketData packet) returns()
 func (_Ibchost *IbchostSession) SetPacketCommitment(portId string, channelId string, sequence uint64, packet PacketData) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetPacketCommitment(&_Ibchost.TransactOpts, portId, channelId, sequence, packet)
 }
 
 // SetPacketCommitment is a paid mutator transaction binding the contract method 0xb7ccdc57.
 //
-// Solidity: function setPacketCommitment(string portId, string channelId, uint64 sequence, (uint64,string,string,string,string,bytes,(uint64,uint64),uint64) packet) returns()
+// Solidity: function setPacketCommitment(string portId, string channelId, uint64 sequence, PacketData packet) returns()
 func (_Ibchost *IbchostTransactorSession) SetPacketCommitment(portId string, channelId string, sequence uint64, packet PacketData) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetPacketCommitment(&_Ibchost.TransactOpts, portId, channelId, sequence, packet)
 }
@@ -1260,42 +1191,42 @@ func (_Ibchost *IbchostTransactorSession) SetPacketReceipt(portId string, channe
 
 // SetProcessedHeight is a paid mutator transaction binding the contract method 0xabadb184.
 //
-// Solidity: function setProcessedHeight(string clientId, (uint64,uint64) height, uint256 processedHeight) returns()
+// Solidity: function setProcessedHeight(string clientId, HeightData height, uint256 processedHeight) returns()
 func (_Ibchost *IbchostTransactor) SetProcessedHeight(opts *bind.TransactOpts, clientId string, height HeightData, processedHeight *big.Int) (*types.Transaction, error) {
 	return _Ibchost.contract.Transact(opts, "setProcessedHeight", clientId, height, processedHeight)
 }
 
 // SetProcessedHeight is a paid mutator transaction binding the contract method 0xabadb184.
 //
-// Solidity: function setProcessedHeight(string clientId, (uint64,uint64) height, uint256 processedHeight) returns()
+// Solidity: function setProcessedHeight(string clientId, HeightData height, uint256 processedHeight) returns()
 func (_Ibchost *IbchostSession) SetProcessedHeight(clientId string, height HeightData, processedHeight *big.Int) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetProcessedHeight(&_Ibchost.TransactOpts, clientId, height, processedHeight)
 }
 
 // SetProcessedHeight is a paid mutator transaction binding the contract method 0xabadb184.
 //
-// Solidity: function setProcessedHeight(string clientId, (uint64,uint64) height, uint256 processedHeight) returns()
+// Solidity: function setProcessedHeight(string clientId, HeightData height, uint256 processedHeight) returns()
 func (_Ibchost *IbchostTransactorSession) SetProcessedHeight(clientId string, height HeightData, processedHeight *big.Int) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetProcessedHeight(&_Ibchost.TransactOpts, clientId, height, processedHeight)
 }
 
 // SetProcessedTime is a paid mutator transaction binding the contract method 0x9760630e.
 //
-// Solidity: function setProcessedTime(string clientId, (uint64,uint64) height, uint256 processedTime) returns()
+// Solidity: function setProcessedTime(string clientId, HeightData height, uint256 processedTime) returns()
 func (_Ibchost *IbchostTransactor) SetProcessedTime(opts *bind.TransactOpts, clientId string, height HeightData, processedTime *big.Int) (*types.Transaction, error) {
 	return _Ibchost.contract.Transact(opts, "setProcessedTime", clientId, height, processedTime)
 }
 
 // SetProcessedTime is a paid mutator transaction binding the contract method 0x9760630e.
 //
-// Solidity: function setProcessedTime(string clientId, (uint64,uint64) height, uint256 processedTime) returns()
+// Solidity: function setProcessedTime(string clientId, HeightData height, uint256 processedTime) returns()
 func (_Ibchost *IbchostSession) SetProcessedTime(clientId string, height HeightData, processedTime *big.Int) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetProcessedTime(&_Ibchost.TransactOpts, clientId, height, processedTime)
 }
 
 // SetProcessedTime is a paid mutator transaction binding the contract method 0x9760630e.
 //
-// Solidity: function setProcessedTime(string clientId, (uint64,uint64) height, uint256 processedTime) returns()
+// Solidity: function setProcessedTime(string clientId, HeightData height, uint256 processedTime) returns()
 func (_Ibchost *IbchostTransactorSession) SetProcessedTime(clientId string, height HeightData, processedTime *big.Int) (*types.Transaction, error) {
 	return _Ibchost.Contract.SetProcessedTime(&_Ibchost.TransactOpts, clientId, height, processedTime)
 }
@@ -1375,7 +1306,7 @@ type IbchostGeneratedChannelIdentifier struct {
 
 // FilterGeneratedChannelIdentifier is a free log retrieval operation binding the contract event 0x01fb9b8778b6fb840b058bb971dea3ba81c167b010a0216afe600826884f9ba7.
 //
-// Solidity: event GeneratedChannelIdentifier(string arg0)
+// Solidity: event GeneratedChannelIdentifier(string )
 func (_Ibchost *IbchostFilterer) FilterGeneratedChannelIdentifier(opts *bind.FilterOpts) (*IbchostGeneratedChannelIdentifierIterator, error) {
 
 	logs, sub, err := _Ibchost.contract.FilterLogs(opts, "GeneratedChannelIdentifier")
@@ -1387,7 +1318,7 @@ func (_Ibchost *IbchostFilterer) FilterGeneratedChannelIdentifier(opts *bind.Fil
 
 // WatchGeneratedChannelIdentifier is a free log subscription operation binding the contract event 0x01fb9b8778b6fb840b058bb971dea3ba81c167b010a0216afe600826884f9ba7.
 //
-// Solidity: event GeneratedChannelIdentifier(string arg0)
+// Solidity: event GeneratedChannelIdentifier(string )
 func (_Ibchost *IbchostFilterer) WatchGeneratedChannelIdentifier(opts *bind.WatchOpts, sink chan<- *IbchostGeneratedChannelIdentifier) (event.Subscription, error) {
 
 	logs, sub, err := _Ibchost.contract.WatchLogs(opts, "GeneratedChannelIdentifier")
@@ -1424,13 +1355,12 @@ func (_Ibchost *IbchostFilterer) WatchGeneratedChannelIdentifier(opts *bind.Watc
 
 // ParseGeneratedChannelIdentifier is a log parse operation binding the contract event 0x01fb9b8778b6fb840b058bb971dea3ba81c167b010a0216afe600826884f9ba7.
 //
-// Solidity: event GeneratedChannelIdentifier(string arg0)
+// Solidity: event GeneratedChannelIdentifier(string )
 func (_Ibchost *IbchostFilterer) ParseGeneratedChannelIdentifier(log types.Log) (*IbchostGeneratedChannelIdentifier, error) {
 	event := new(IbchostGeneratedChannelIdentifier)
 	if err := _Ibchost.contract.UnpackLog(event, "GeneratedChannelIdentifier", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -1509,7 +1439,7 @@ type IbchostGeneratedClientIdentifier struct {
 
 // FilterGeneratedClientIdentifier is a free log retrieval operation binding the contract event 0x601bfcc455d5d4d7738f8c6ac232e0d7cc9c31dab811f1d87c100af0b7fc3a20.
 //
-// Solidity: event GeneratedClientIdentifier(string arg0)
+// Solidity: event GeneratedClientIdentifier(string )
 func (_Ibchost *IbchostFilterer) FilterGeneratedClientIdentifier(opts *bind.FilterOpts) (*IbchostGeneratedClientIdentifierIterator, error) {
 
 	logs, sub, err := _Ibchost.contract.FilterLogs(opts, "GeneratedClientIdentifier")
@@ -1521,7 +1451,7 @@ func (_Ibchost *IbchostFilterer) FilterGeneratedClientIdentifier(opts *bind.Filt
 
 // WatchGeneratedClientIdentifier is a free log subscription operation binding the contract event 0x601bfcc455d5d4d7738f8c6ac232e0d7cc9c31dab811f1d87c100af0b7fc3a20.
 //
-// Solidity: event GeneratedClientIdentifier(string arg0)
+// Solidity: event GeneratedClientIdentifier(string )
 func (_Ibchost *IbchostFilterer) WatchGeneratedClientIdentifier(opts *bind.WatchOpts, sink chan<- *IbchostGeneratedClientIdentifier) (event.Subscription, error) {
 
 	logs, sub, err := _Ibchost.contract.WatchLogs(opts, "GeneratedClientIdentifier")
@@ -1558,13 +1488,12 @@ func (_Ibchost *IbchostFilterer) WatchGeneratedClientIdentifier(opts *bind.Watch
 
 // ParseGeneratedClientIdentifier is a log parse operation binding the contract event 0x601bfcc455d5d4d7738f8c6ac232e0d7cc9c31dab811f1d87c100af0b7fc3a20.
 //
-// Solidity: event GeneratedClientIdentifier(string arg0)
+// Solidity: event GeneratedClientIdentifier(string )
 func (_Ibchost *IbchostFilterer) ParseGeneratedClientIdentifier(log types.Log) (*IbchostGeneratedClientIdentifier, error) {
 	event := new(IbchostGeneratedClientIdentifier)
 	if err := _Ibchost.contract.UnpackLog(event, "GeneratedClientIdentifier", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -1643,7 +1572,7 @@ type IbchostGeneratedConnectionIdentifier struct {
 
 // FilterGeneratedConnectionIdentifier is a free log retrieval operation binding the contract event 0xbcf8ae1e9272e040280c9adfc8033bb831043a9959e37ef4af1f7e8ded16321b.
 //
-// Solidity: event GeneratedConnectionIdentifier(string arg0)
+// Solidity: event GeneratedConnectionIdentifier(string )
 func (_Ibchost *IbchostFilterer) FilterGeneratedConnectionIdentifier(opts *bind.FilterOpts) (*IbchostGeneratedConnectionIdentifierIterator, error) {
 
 	logs, sub, err := _Ibchost.contract.FilterLogs(opts, "GeneratedConnectionIdentifier")
@@ -1655,7 +1584,7 @@ func (_Ibchost *IbchostFilterer) FilterGeneratedConnectionIdentifier(opts *bind.
 
 // WatchGeneratedConnectionIdentifier is a free log subscription operation binding the contract event 0xbcf8ae1e9272e040280c9adfc8033bb831043a9959e37ef4af1f7e8ded16321b.
 //
-// Solidity: event GeneratedConnectionIdentifier(string arg0)
+// Solidity: event GeneratedConnectionIdentifier(string )
 func (_Ibchost *IbchostFilterer) WatchGeneratedConnectionIdentifier(opts *bind.WatchOpts, sink chan<- *IbchostGeneratedConnectionIdentifier) (event.Subscription, error) {
 
 	logs, sub, err := _Ibchost.contract.WatchLogs(opts, "GeneratedConnectionIdentifier")
@@ -1692,12 +1621,11 @@ func (_Ibchost *IbchostFilterer) WatchGeneratedConnectionIdentifier(opts *bind.W
 
 // ParseGeneratedConnectionIdentifier is a log parse operation binding the contract event 0xbcf8ae1e9272e040280c9adfc8033bb831043a9959e37ef4af1f7e8ded16321b.
 //
-// Solidity: event GeneratedConnectionIdentifier(string arg0)
+// Solidity: event GeneratedConnectionIdentifier(string )
 func (_Ibchost *IbchostFilterer) ParseGeneratedConnectionIdentifier(log types.Log) (*IbchostGeneratedConnectionIdentifier, error) {
 	event := new(IbchostGeneratedConnectionIdentifier)
 	if err := _Ibchost.contract.UnpackLog(event, "GeneratedConnectionIdentifier", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
