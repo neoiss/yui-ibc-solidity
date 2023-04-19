@@ -12,12 +12,22 @@ import "../02-client/IIBCClient.sol";
  * @dev IBCClient is a contract that implements [ICS-2](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics).
  */
 contract IBCClient is IBCStore, IIBCClient {
+    // error definitions
+    error ClientAlreadyRegistered(string, address);
+    error CannotRegisterSelfAddress(address);
+    error UnregisteredClientType(string);
+    error FailedCallLightClientCreateClient(address, string, bytes, bytes);
+    error FailedCallLightClientUpdateClient(address, string, bytes);
+
     /**
      * @dev registerClient registers a new client type into the client registry
      */
     function registerClient(string calldata clientType, ILightClient client) external override {
-        require(address(clientRegistry[clientType]) == address(0), "clientImpl already exists");
-        require(address(client) != address(this));
+        if (address(clientRegistry[clientType]) != address(0)) {
+            revert ClientAlreadyRegistered(clientType, address(clientRegistry[clientType]));
+        } else if (address(client) == address(this)) {
+            revert CannotRegisterSelfAddress(address(this));
+        }
         clientRegistry[clientType] = address(client);
     }
 
@@ -26,13 +36,19 @@ contract IBCClient is IBCStore, IIBCClient {
      */
     function createClient(IBCMsgs.MsgCreateClient calldata msg_) external override returns (string memory clientId) {
         address clientImpl = clientRegistry[msg_.clientType];
-        require(clientImpl != address(0), "unregistered client type");
+        if (clientImpl == address(0)) {
+            revert UnregisteredClientType(msg_.clientType);
+        }
         clientId = generateClientIdentifier(msg_.clientType);
         clientTypes[clientId] = msg_.clientType;
         clientImpls[clientId] = clientImpl;
         (bytes32 clientStateCommitment, ConsensusStateUpdate memory update, bool ok) =
             ILightClient(clientImpl).createClient(clientId, msg_.clientStateBytes, msg_.consensusStateBytes);
-        require(ok, "failed to create client");
+        if (!ok) {
+            revert FailedCallLightClientCreateClient(
+                clientImpl, clientId, msg_.clientStateBytes, msg_.consensusStateBytes
+            );
+        }
 
         // update commitments
         commitments[keccak256(IBCCommitment.clientStatePath(clientId))] = clientStateCommitment;
@@ -50,7 +66,11 @@ contract IBCClient is IBCStore, IIBCClient {
         require(commitments[IBCCommitment.clientStateCommitmentKey(msg_.clientId)] != bytes32(0));
         (bytes32 clientStateCommitment, ConsensusStateUpdate[] memory updates, bool ok) =
             checkAndGetClient(msg_.clientId).updateClient(msg_.clientId, msg_.clientMessage);
-        require(ok, "failed to update client");
+        if (!ok) {
+            revert FailedCallLightClientUpdateClient(
+                address(checkAndGetClient(msg_.clientId)), msg_.clientId, msg_.clientMessage
+            );
+        }
 
         // update commitments
         commitments[keccak256(IBCCommitment.clientStatePath(msg_.clientId))] = clientStateCommitment;
