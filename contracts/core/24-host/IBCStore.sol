@@ -30,11 +30,16 @@ abstract contract IBCStore {
     uint64 internal nextConnectionSequence;
     uint64 internal nextChannelSequence;
 
+    // error definitions
+    error ClientIdNotFound(string);
+
     // Storage accessors
 
     function checkAndGetClient(string memory clientId) internal view returns (ILightClient) {
         address clientImpl = clientImpls[clientId];
-        require(clientImpl != address(0));
+        if (clientImpl == address(0)) {
+            revert ClientIdNotFound(clientId);
+        }
         return ILightClient(clientImpl);
     }
 }
