@@ -2,8 +2,8 @@ package module
 
 import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/relay"
 	"github.com/hyperledger-labs/yui-relayer/config"
+	"github.com/neoiss/yui-ibc-solidity/pkg/relay"
 	"github.com/spf13/cobra"
 )
 

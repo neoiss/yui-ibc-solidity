@@ -1,6 +1,6 @@
 package channel
 
-import client "github.com/hyperledger-labs/yui-ibc-solidity/pkg/ibc/client"
+import client "github.com/neoiss/yui-ibc-solidity/pkg/ibc/client"
 
 // NewPacket creates a new Packet instance.
 func NewPacket(

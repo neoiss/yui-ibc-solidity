@@ -3,7 +3,7 @@ package client
 import (
 	"math/big"
 
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
+	"github.com/neoiss/yui-ibc-solidity/pkg/contract/ibchandler"
 )
 
 // client type

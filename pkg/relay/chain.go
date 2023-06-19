@@ -18,10 +18,10 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/modules/core/exported"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchost"
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/wallet"
 	"github.com/hyperledger-labs/yui-relayer/core"
+	"github.com/neoiss/yui-ibc-solidity/pkg/contract/ibchandler"
+	"github.com/neoiss/yui-ibc-solidity/pkg/contract/ibchost"
+	"github.com/neoiss/yui-ibc-solidity/pkg/wallet"
 )
 
 type Chain struct {

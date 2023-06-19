@@ -16,7 +16,7 @@ import (
 	gethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/gogo/protobuf/proto"
 
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
+	"github.com/neoiss/yui-ibc-solidity/pkg/contract/ibchandler"
 )
 
 // SendMsgs sends msgs to the chain

@@ -5,8 +5,8 @@ import (
 	channeltypes "github.com/cosmos/ibc-go/modules/core/04-channel/types"
 	commitmenttypes "github.com/cosmos/ibc-go/modules/core/23-commitment/types"
 	"github.com/cosmos/ibc-go/modules/core/exported"
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchandler"
-	"github.com/hyperledger-labs/yui-ibc-solidity/pkg/contract/ibchost"
+	"github.com/neoiss/yui-ibc-solidity/pkg/contract/ibchandler"
+	"github.com/neoiss/yui-ibc-solidity/pkg/contract/ibchost"
 )
 
 func connectionEndToPB(conn ibchost.ConnectionEndData) connectiontypes.ConnectionEnd {
