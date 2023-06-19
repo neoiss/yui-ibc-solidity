@@ -26,6 +26,8 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			tx  *gethtypes.Transaction
 			err error
 		)
+		log.Printf("============================== type: %T\n", msg)
+		log.Printf("============================== msg: %T\n", msg.String())
 		ctx := context.Background()
 		opts := c.TxOpts(ctx)
 		switch msg := msg.(type) {
