@@ -52,10 +52,8 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			tx, err = c.TxChannelOpenConfirm(opts, msg)
 		case *chantypes.MsgRecvPacket:
 			tx, err = c.TxRecvPacket(opts, msg)
-			log.Printf("============================== msg: %T\n", msg.String())
 		case *chantypes.MsgAcknowledgement:
 			tx, err = c.TxAcknowledgement(opts, msg)
-			log.Printf("============================== msg: %T\n", msg.String())
 		// case *transfertypes.MsgTransfer:
 		// 	err = c.client.transfer(msg)
 		default:
@@ -238,7 +236,9 @@ func (c *Chain) TxChannelOpenConfirm(opts *bind.TransactOpts, msg *chantypes.Msg
 }
 
 func (c *Chain) TxRecvPacket(opts *bind.TransactOpts, msg *chantypes.MsgRecvPacket) (*gethtypes.Transaction, error) {
-	return c.ibcHandler.RecvPacket(opts, ibchandler.IBCMsgsMsgPacketRecv{
+	log.Printf("============================== MsgRecvPacket: %+v\n", msg)
+	log.Printf("============================== MsgRecvPacket: %#v\n", msg)
+	msg_ := ibchandler.IBCMsgsMsgPacketRecv{
 		Packet: ibchandler.PacketData{
 			Sequence:           msg.Packet.Sequence,
 			SourcePort:         msg.Packet.SourcePort,
@@ -251,7 +251,10 @@ func (c *Chain) TxRecvPacket(opts *bind.TransactOpts, msg *chantypes.MsgRecvPack
 		},
 		Proof:       msg.ProofCommitment,
 		ProofHeight: pbToHandlerHeight(msg.ProofHeight),
-	})
+	}
+	log.Printf("============================== IBCMsgsMsgPacketRecv: %+v\n", msg)
+	log.Printf("============================== IBCMsgsMsgPacketRecv: %#v\n", msg)
+	return c.ibcHandler.RecvPacket(opts, msg_)
 }
 
 func (c *Chain) TxAcknowledgement(opts *bind.TransactOpts, msg *chantypes.MsgAcknowledgement) (*gethtypes.Transaction, error) {
