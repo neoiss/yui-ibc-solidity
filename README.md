@@ -1,7 +1,7 @@
 # IBC-Solidity
 
-![Test](https://github.com/hyperledger-labs/yui-ibc-solidity/workflows/Test/badge.svg)
-[![GoDoc](https://godoc.org/github.com/hyperledger-labs/yui-ibc-solidity?status.svg)](https://pkg.go.dev/github.com/hyperledger-labs/yui-ibc-solidity?tab=doc)
+![Test](https://github.com/neoiss/yui-ibc-solidity/workflows/Test/badge.svg)
+[![GoDoc](https://godoc.org/github.com/neoiss/yui-ibc-solidity?status.svg)](https://pkg.go.dev/github.com/neoiss/yui-ibc-solidity?tab=doc)
 
 [IBC](https://github.com/cosmos/ibc) implementations in Solidity.
 
