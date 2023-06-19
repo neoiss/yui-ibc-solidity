@@ -27,7 +27,6 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			err error
 		)
 		log.Printf("============================== type: %T\n", msg)
-		log.Printf("============================== msg: %T\n", msg.String())
 		ctx := context.Background()
 		opts := c.TxOpts(ctx)
 		switch msg := msg.(type) {
@@ -53,8 +52,10 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			tx, err = c.TxChannelOpenConfirm(opts, msg)
 		case *chantypes.MsgRecvPacket:
 			tx, err = c.TxRecvPacket(opts, msg)
+			log.Printf("============================== msg: %T\n", msg.String())
 		case *chantypes.MsgAcknowledgement:
 			tx, err = c.TxAcknowledgement(opts, msg)
+			log.Printf("============================== msg: %T\n", msg.String())
 		// case *transfertypes.MsgTransfer:
 		// 	err = c.client.transfer(msg)
 		default:
