@@ -2,6 +2,7 @@ package relay
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"time"
@@ -237,7 +238,8 @@ func (c *Chain) TxChannelOpenConfirm(opts *bind.TransactOpts, msg *chantypes.Msg
 
 func (c *Chain) TxRecvPacket(opts *bind.TransactOpts, msg *chantypes.MsgRecvPacket) (*gethtypes.Transaction, error) {
 	log.Printf("============================== MsgRecvPacket: %+v\n", msg)
-	log.Printf("============================== MsgRecvPacket: %#v\n", msg)
+	marshal, _ := json.Marshal(msg)
+	log.Printf("============================== MsgRecvPacket: %#v\n", marshal)
 	msg_ := ibchandler.IBCMsgsMsgPacketRecv{
 		Packet: ibchandler.PacketData{
 			Sequence:           msg.Packet.Sequence,
@@ -252,8 +254,9 @@ func (c *Chain) TxRecvPacket(opts *bind.TransactOpts, msg *chantypes.MsgRecvPack
 		Proof:       msg.ProofCommitment,
 		ProofHeight: pbToHandlerHeight(msg.ProofHeight),
 	}
-	log.Printf("============================== IBCMsgsMsgPacketRecv: %+v\n", msg)
-	log.Printf("============================== IBCMsgsMsgPacketRecv: %#v\n", msg)
+	log.Printf("============================== IBCMsgsMsgPacketRecv: %+v\n", msg_)
+	marshal, _ = json.Marshal(msg_)
+	log.Printf("============================== IBCMsgsMsgPacketRecv: %#v\n", marshal)
 	return c.ibcHandler.RecvPacket(opts, msg_)
 }
 
