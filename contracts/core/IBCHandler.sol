@@ -164,7 +164,7 @@ contract IBCHandler {
         return IModuleCallbacks(module);
     }
 
-    function lookupModuleByChannel(string memory portId, string memory channelId) internal view returns (IModuleCallbacks) {
+    function lookupModuleByChannel(string memory portId, string memory channelId) external view returns (IModuleCallbacks) {
         (address module, bool found) = host.getModuleOwner(IBCIdentifier.channelCapabilityPath(portId, channelId));
         require(found, "not found module owner by channel");
         return IModuleCallbacks(module);
