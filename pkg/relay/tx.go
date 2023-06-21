@@ -53,6 +53,7 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			tx, err = c.TxChannelOpenConfirm(opts, msg)
 		case *chantypes.MsgRecvPacket:
 			tx, err = c.TxRecvPacket(opts, msg)
+			log.Printf("============================== TxRecvPacket err: %s\n", err.Error())
 		case *chantypes.MsgAcknowledgement:
 			tx, err = c.TxAcknowledgement(opts, msg)
 		// case *transfertypes.MsgTransfer:
@@ -61,9 +62,11 @@ func (c *Chain) SendMsgs(msgs []sdk.Msg) ([]byte, error) {
 			panic("illegal msg type")
 		}
 		if err != nil {
+			log.Printf("============================== err: %s\n", err.Error())
 			return nil, err
 		}
 		if err := c.TxSync(ctx, tx); err != nil {
+			log.Printf("============================== TxSync err: %s\n", err.Error())
 			return nil, err
 		}
 		if c.msgEventListener != nil {

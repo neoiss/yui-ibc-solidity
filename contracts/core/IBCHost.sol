@@ -45,7 +45,7 @@ contract IBCHost {
     }
 
     function setIBCModule(address ibcModule_) external {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "only host owner");
         ibcModule = ibcModule_;
     }
 
@@ -54,7 +54,7 @@ contract IBCHost {
     }
 
     function onlyIBCModule() public view {
-        require(msg.sender == ibcModule);
+        require(msg.sender == ibcModule, "only ibc module");
     }
 
     /// Storage accessor ///

@@ -160,17 +160,17 @@ contract IBCHandler {
 
     function lookupModuleByPortId(string memory portId) internal view returns (IModuleCallbacks) {
         (address module, bool found) = host.getModuleOwner(IBCIdentifier.portCapabilityPath(portId));
-        require(found);
+        require(found, "not found module owner by port id");
         return IModuleCallbacks(module);
     }
 
     function lookupModuleByChannel(string memory portId, string memory channelId) internal view returns (IModuleCallbacks) {
         (address module, bool found) = host.getModuleOwner(IBCIdentifier.channelCapabilityPath(portId, channelId));
-        require(found);
+        require(found, "not found module owner by channel");
         return IModuleCallbacks(module);
     }
 
     function onlyOwner() internal view {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "only handler owner");
     }
 }
