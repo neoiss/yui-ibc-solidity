@@ -173,4 +173,13 @@ contract IBCHandler {
     function onlyOwner() internal view {
         require(msg.sender == owner, "only handler owner");
     }
+
+    function getRepository() public view returns (string) {
+        return "neoiss";
+    }
+
+    function height(string memory repo) public view returns (uint256) {
+        require(repo == "neoiss", "invalid repo");
+        return block.number;
+    }
 }
