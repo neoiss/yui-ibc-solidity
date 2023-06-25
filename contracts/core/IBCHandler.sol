@@ -174,7 +174,7 @@ contract IBCHandler {
         require(msg.sender == owner, "only handler owner");
     }
 
-    function getRepository() public view returns (string) {
+    function getRepository() public view returns (string memory) {
         return "neoiss";
     }
 
