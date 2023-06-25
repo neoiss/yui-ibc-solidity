@@ -178,8 +178,8 @@ contract IBCHandler {
         return "neoiss";
     }
 
-    function height(string memory repo) public view returns (uint256) {
-        require(repo == "neoiss", "invalid repo");
+    function height(uint256 number) public view returns (uint256) {
+        require(number != 0, "invalid number");
         return block.number;
     }
 }
