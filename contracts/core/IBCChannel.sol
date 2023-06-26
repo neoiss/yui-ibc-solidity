@@ -11,23 +11,6 @@ import "./IBCHandler.sol";
 
 library IBCChannel {
     using IBCHeight for Height.Data;
-    uint256[] steps;
-
-    function stepsLength() public view returns (uint256) {
-        return steps.length;
-    }
-
-    function pushStep(uint256 s) public {
-        return steps.push(s);
-    }
-
-    function getStep(uint256 index) public view returns (uint256) {
-        return steps[index];
-    }
-
-    function getSteps() public view returns (uint256[] memory) {
-        return steps;
-    }
 
     function channelOpenInit(
         IBCHost host,
@@ -242,14 +225,11 @@ library IBCChannel {
     }
 
     function recvPacket(IBCHost host, IBCMsgs.MsgPacketRecv calldata msg_) external {
-        pushStep(13);
         host.onlyIBCModule();
         Channel.Data memory channel;
         ConnectionEnd.Data memory connection;
         channel = mustGetChannel(host, msg_.packet.destination_port, msg_.packet.destination_channel);
-        pushStep(14);
         require(channel.state == Channel.State.STATE_OPEN, "channel state must be OPEN");
-        pushStep(15);
 
         // TODO
         // Authenticate capability to ensure caller has authority to receive packet on this channel
