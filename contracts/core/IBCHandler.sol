@@ -122,10 +122,10 @@ contract IBCHandler {
 
     function recvPacket(IBCMsgs.MsgPacketRecv calldata msg_) external returns (bytes memory acknowledgement) {
         pushStep(1);
+        revert("recvPacket 1");
         IModuleCallbacks module = lookupModuleByChannel(msg_.packet.destination_port, msg_.packet.destination_channel);
         pushStep(5);
         acknowledgement = module.onRecvPacket(msg_.packet);
-        require(false, "onRecvPacket 2");
         pushStep(12);
         IBCChannel.recvPacket(host, msg_);
         pushStep(16);
@@ -185,7 +185,7 @@ contract IBCHandler {
     }
 
     function version() public pure returns (string memory) {
-        return "v0.0.21";
+        return "v0.0.22";
     }
 
     function height(uint256 number) public view returns (uint256) {
