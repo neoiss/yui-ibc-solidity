@@ -11,7 +11,7 @@ import "../lib/strings.sol";
 import "../lib/Bytes.sol";
 import "openzeppelin-solidity/contracts/utils/Context.sol";
 
-abstract contract ICS20Transfer is Context, IICS20Transfer {
+abstract contract ICS20Transfer is Context, IICS20Transfer, IBCHandler {
     using strings for *;
     using Bytes for *;
 
@@ -55,22 +55,22 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
     /// Module callbacks ///
 
     function onRecvPacket(Packet.Data calldata packet) external virtual override returns (bytes memory acknowledgement) {
-        IBCHandler.pushStep(6);
+        pushStep(6);
         FungibleTokenPacketData.Data memory data = FungibleTokenPacketData.decode(packet.data);
-        IBCHandler.pushStep(7);
+        pushStep(7);
         strings.slice memory denom = data.denom.toSlice();
-        IBCHandler.pushStep(8);
+        pushStep(8);
         strings.slice memory trimedDenom = data.denom.toSlice().beyond(
             _makeDenomPrefix(packet.source_port, packet.source_channel)
         );
-        IBCHandler.pushStep(9);
+        pushStep(9);
         if (!denom.equals(trimedDenom)) { // receiver is source chain
-            IBCHandler.pushStep(10);
+            pushStep(10);
             return _newAcknowledgement(
                 _transferFrom(_getEscrowAddress(packet.destination_channel), data.receiver.toAddress(), trimedDenom.toString(), data.amount)
             );
         } else {
-            IBCHandler.pushStep(11);
+            pushStep(11);
             string memory prefixedDenom = _makeDenomPrefix(packet.destination_port, packet.destination_channel).concat(denom);
             return _newAcknowledgement(
                 _mint(data.receiver.toAddress(), prefixedDenom, data.amount)
