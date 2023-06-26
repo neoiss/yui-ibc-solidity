@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common"
 	"log"
 	"time"
 
@@ -241,6 +242,8 @@ func (c *Chain) TxChannelOpenConfirm(opts *bind.TransactOpts, msg *chantypes.Msg
 
 func (c *Chain) TxRecvPacket(opts *bind.TransactOpts, msg *chantypes.MsgRecvPacket) (*gethtypes.Transaction, error) {
 	log.Printf("============================== MsgRecvPacket: %+v\n", msg)
+	log.Printf("============================== MsgRecvPacket.Proof: %s\n", common.Bytes2Hex(msg.ProofCommitment))
+	log.Printf("============================== MsgRecvPacket.Packet.Data: %s\n", common.Bytes2Hex(msg.Packet.Data))
 	marshal, _ := json.Marshal(msg)
 	log.Printf("============================== MsgRecvPacket: %s\n", string(marshal))
 	msg_ := ibchandler.IBCMsgsMsgPacketRecv{
@@ -258,6 +261,8 @@ func (c *Chain) TxRecvPacket(opts *bind.TransactOpts, msg *chantypes.MsgRecvPack
 		ProofHeight: pbToHandlerHeight(msg.ProofHeight),
 	}
 	log.Printf("============================== IBCMsgsMsgPacketRecv: %+v\n", msg_)
+	log.Printf("============================== IBCMsgsMsgPacketRecv.Proof: %s\n", common.Bytes2Hex(msg_.Proof))
+	log.Printf("============================== IBCMsgsMsgPacketRecv.Packet.Data: %s\n", common.Bytes2Hex(msg_.Packet.Data))
 	marshal, _ = json.Marshal(msg_)
 	log.Printf("============================== IBCMsgsMsgPacketRecv: %s\n", string(marshal))
 	return c.ibcHandler.RecvPacket(opts, msg_)

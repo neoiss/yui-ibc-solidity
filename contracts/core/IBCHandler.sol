@@ -184,7 +184,7 @@ contract IBCHandler {
     }
 
     function version() public pure returns (string memory) {
-        return "v0.0.14";
+        return "v0.0.15";
     }
 
     function height(uint256 number) public view returns (uint256) {
