@@ -127,7 +127,7 @@ contract IBCHandler {
         pushStep(5);
 //        revert("lookupModuleByChannel 2");
         acknowledgement = module.onRecvPacket(msg_.packet);
-        revert("onRecvPacket 2");
+//        revert("onRecvPacket 2");
         pushStep(12);
         IBCChannel.recvPacket(host, msg_);
         pushStep(16);
@@ -187,7 +187,7 @@ contract IBCHandler {
     }
 
     function version() public pure returns (string memory) {
-        return "v0.0.24";
+        return "v0.0.25";
     }
 
     function height(uint256 number) public view returns (uint256) {
