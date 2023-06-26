@@ -120,6 +120,7 @@ contract IBCHandler {
     }
 
     function recvPacket(IBCMsgs.MsgPacketRecv calldata msg_) external returns (bytes memory acknowledgement) {
+        require(false, "require test msg");
         IModuleCallbacks module = lookupModuleByChannel(msg_.packet.destination_port, msg_.packet.destination_channel);
         acknowledgement = module.onRecvPacket(msg_.packet);
         IBCChannel.recvPacket(host, msg_);
