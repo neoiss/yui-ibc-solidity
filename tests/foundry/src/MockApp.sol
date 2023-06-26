@@ -16,6 +16,7 @@ contract MockApp is IModuleCallbacks {
     /// Module callbacks ///
 
     function onRecvPacket(Packet.Data calldata) external virtual override returns (bytes memory) {
+        IBCHandler.pushStep(188888);
         emit MockRecv(true);
     }
 

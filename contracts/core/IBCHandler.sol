@@ -12,6 +12,7 @@ contract IBCHandler {
 
     address owner;
     IBCHost host;
+    uint256[] steps;
 
     /// Event definitions ///
     event SendPacket(Packet.Data packet);
@@ -120,11 +121,15 @@ contract IBCHandler {
     }
 
     function recvPacket(IBCMsgs.MsgPacketRecv calldata msg_) external returns (bytes memory acknowledgement) {
-        require(false, "require test msg");
+        steps.push(1);
         IModuleCallbacks module = lookupModuleByChannel(msg_.packet.destination_port, msg_.packet.destination_channel);
+        steps.push(5);
         acknowledgement = module.onRecvPacket(msg_.packet);
+        steps.push(12);
         IBCChannel.recvPacket(host, msg_);
+        steps.push(16);
         if (acknowledgement.length > 0) {
+            steps.push(17);
             IBCChannel.writeAcknowledgement(host, msg_.packet.destination_port, msg_.packet.destination_channel, msg_.packet.sequence, acknowledgement);
             emit WriteAcknowledgement(msg_.packet.destination_port, msg_.packet.destination_channel, msg_.packet.sequence, acknowledgement);
         }
@@ -165,9 +170,12 @@ contract IBCHandler {
         return IModuleCallbacks(module);
     }
 
-    function lookupModuleByChannel(string memory portId, string memory channelId) public view returns (IModuleCallbacks) {
+    function lookupModuleByChannel(string memory portId, string memory channelId) public returns (IModuleCallbacks) {
+        steps.push(2);
         (address module, bool found) = host.getModuleOwner(IBCIdentifier.channelCapabilityPath(portId, channelId));
+        steps.push(3);
         require(found, "not found module owner by channel");
+        steps.push(4);
         return IModuleCallbacks(module);
     }
 
@@ -175,12 +183,28 @@ contract IBCHandler {
         require(msg.sender == owner, "only handler owner");
     }
 
-    function version() public view returns (string memory) {
-        return "v0.0.13";
+    function version() public pure returns (string memory) {
+        return "v0.0.14";
     }
 
     function height(uint256 number) public view returns (uint256) {
         require(number != 0, "invalid number");
         return block.number;
+    }
+
+    function stepsLength() public view returns (uint256) {
+        return steps.length;
+    }
+
+    function pushStep(uint256 s) public {
+        return steps.push(s);
+    }
+
+    function getStep(uint256 index) public view returns (uint256) {
+        return steps[index];
+    }
+
+    function getSteps() public view returns (uint256[] memory) {
+        return steps;
     }
 }
