@@ -73,6 +73,7 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
 
     function onRecvPacket(Packet.Data calldata packet) external virtual override returns (bytes memory acknowledgement) {
         pushStep(6);
+        revert("onRecvPacket 1");
         FungibleTokenPacketData.Data memory data = FungibleTokenPacketData.decode(packet.data);
         revert("decode 2");
         pushStep(7);
