@@ -121,15 +121,16 @@ contract IBCHandler {
     }
 
     function recvPacket(IBCMsgs.MsgPacketRecv calldata msg_) external returns (bytes memory acknowledgement) {
-        steps.push(1);
+        pushStep(1);
         IModuleCallbacks module = lookupModuleByChannel(msg_.packet.destination_port, msg_.packet.destination_channel);
-        steps.push(5);
+        pushStep(5);
         acknowledgement = module.onRecvPacket(msg_.packet);
-        steps.push(12);
+        require(false, "onRecvPacket 2");
+        pushStep(12);
         IBCChannel.recvPacket(host, msg_);
-        steps.push(16);
+        pushStep(16);
         if (acknowledgement.length > 0) {
-            steps.push(17);
+            pushStep(17);
             IBCChannel.writeAcknowledgement(host, msg_.packet.destination_port, msg_.packet.destination_channel, msg_.packet.sequence, acknowledgement);
             emit WriteAcknowledgement(msg_.packet.destination_port, msg_.packet.destination_channel, msg_.packet.sequence, acknowledgement);
         }
@@ -184,7 +185,7 @@ contract IBCHandler {
     }
 
     function version() public pure returns (string memory) {
-        return "v0.0.18";
+        return "v0.0.20";
     }
 
     function height(uint256 number) public view returns (uint256) {
