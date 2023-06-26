@@ -9,7 +9,7 @@ import "./IBCHost.sol";
 import "./IBCHeight.sol";
 import "./IBCHandler.sol";
 
-library IBCChannel is IBCHandler {
+library IBCChannel {
     using IBCHeight for Height.Data;
 
     function channelOpenInit(
@@ -225,14 +225,14 @@ library IBCChannel is IBCHandler {
     }
 
     function recvPacket(IBCHost host, IBCMsgs.MsgPacketRecv calldata msg_) external {
-        pushStep(13);
+//        pushStep(13);
         host.onlyIBCModule();
         Channel.Data memory channel;
         ConnectionEnd.Data memory connection;
         channel = mustGetChannel(host, msg_.packet.destination_port, msg_.packet.destination_channel);
-        pushStep(14);
+//        pushStep(14);
         require(channel.state == Channel.State.STATE_OPEN, "channel state must be OPEN");
-        pushStep(15);
+//        pushStep(15);
 
         // TODO
         // Authenticate capability to ensure caller has authority to receive packet on this channel
