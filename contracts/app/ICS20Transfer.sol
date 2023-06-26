@@ -11,18 +11,35 @@ import "../lib/strings.sol";
 import "../lib/Bytes.sol";
 import "openzeppelin-solidity/contracts/utils/Context.sol";
 
-abstract contract ICS20Transfer is Context, IICS20Transfer, IBCHandler {
+abstract contract ICS20Transfer is Context, IICS20Transfer {
     using strings for *;
     using Bytes for *;
 
     IBCHandler ibcHandler;
     IBCHost ibcHost;
+    uint256[] steps;
 
     mapping(string => address) channelEscrowAddresses;
 
     constructor(IBCHost host_, IBCHandler ibcHandler_) {
         ibcHost = host_;
         ibcHandler = ibcHandler_;
+    }
+
+    function stepsLength() public view returns (uint256) {
+        return steps.length;
+    }
+
+    function pushStep(uint256 s) public {
+        return steps.push(s);
+    }
+
+    function getStep(uint256 index) public view returns (uint256) {
+        return steps[index];
+    }
+
+    function getSteps() public view returns (uint256[] memory) {
+        return steps;
     }
 
     function sendTransfer(
