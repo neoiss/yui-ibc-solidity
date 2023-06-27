@@ -26,6 +26,11 @@ library FungibleTokenPacketData {
     return x;
   }
 
+  function decodeData(bytes memory bs) public pure returns (Data memory) {
+    (Data memory x, ) = _decode(32, bs, bs.length);
+    return x;
+  }
+
   /**
    * @dev The main decoder for storage
    * @param self The in-storage struct

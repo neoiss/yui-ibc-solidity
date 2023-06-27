@@ -585,7 +585,7 @@ library ProtoBufRuntime {
       (, uint256 size) = ProtoBufRuntime._decode_varint(p, bs);
       return size;
     } else {
-      require(wt == ProtoBufRuntime.WireType.LengthDelim);
+      require(wt == ProtoBufRuntime.WireType.LengthDelim, "only LengthDelim type");
       (uint256 len, uint256 size) = ProtoBufRuntime._decode_varint(p, bs);
       return size + len;
     }
