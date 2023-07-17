@@ -8,7 +8,7 @@ require (
 	github.com/btcsuite/btcutil v1.0.2
 	github.com/datachainlab/solidity-protobuf/protobuf-solidity/src/protoc/go v0.0.0-20211215073805-59460caf6e59
 	github.com/deckarep/golang-set v1.7.1 // indirect
-	github.com/ethereum/go-ethereum v1.9.25
+	github.com/ethereum/go-ethereum v1.10.10
 	github.com/go-kit/kit v0.10.0 // indirect
 	github.com/gogo/protobuf v1.3.3
 	github.com/google/uuid v1.1.2 // indirect
@@ -27,6 +27,5 @@ require (
 )
 
 replace (
-	github.com/ethereum/go-ethereum => github.com/ethereum/go-ethereum v1.9.10
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 )
