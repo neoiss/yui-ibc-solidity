@@ -74,6 +74,7 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
 
     function onAcknowledgementPacket(Packet.Data calldata packet, bytes calldata acknowledgement) external virtual override {
         if (!_isSuccessAcknowledgement(acknowledgement)) {
+            revert("onAcknowledgementPacket start");
             _refundTokens(FungibleTokenPacketData.decode(packet.data), packet.source_port, packet.source_channel);
             revert("onAcknowledgementPacket end");
         }
