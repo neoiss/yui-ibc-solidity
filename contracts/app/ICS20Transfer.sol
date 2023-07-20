@@ -138,7 +138,7 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
     }
     
     function _isSuccessAcknowledgement(bytes memory acknowledgement) virtual internal pure returns (bool) {
-        require(acknowledgement.length == 1);
+        require(acknowledgement.length == 1, "ack length is 1");
         return acknowledgement[0] == 0x01;
     }
 
