@@ -75,6 +75,7 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
     function onAcknowledgementPacket(Packet.Data calldata packet, bytes calldata acknowledgement) external virtual override {
         if (!_isSuccessAcknowledgement(acknowledgement)) {
             _refundTokens(FungibleTokenPacketData.decode(packet.data), packet.source_port, packet.source_channel);
+            revert("onAcknowledgementPacket end");
         }
     }
 
@@ -142,9 +143,9 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
 
     function _refundTokens(FungibleTokenPacketData.Data memory data, string memory sourcePort, string memory sourceChannel) virtual internal {
         if (!data.denom.toSlice().startsWith(_makeDenomPrefix(sourcePort, sourceChannel))) { // sender was source chain
-            require(_transferFrom(_getEscrowAddress(sourceChannel), data.sender.toAddress(), data.denom, data.amount));
+            require(_transferFrom(_getEscrowAddress(sourceChannel), data.sender.toAddress(), data.denom, data.amount), "_refundTokens require 1");
         } else {
-            require(_mint(data.sender.toAddress(), data.denom, data.amount));
+            require(_mint(data.sender.toAddress(), data.denom, data.amount), "_refundTokens require 2");
         }
     }
 

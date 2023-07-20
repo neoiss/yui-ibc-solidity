@@ -50,7 +50,7 @@ contract IBCHost {
     }
 
     function onlyIBCModule() public view {
-        require(msg.sender == ibcModule);
+        require(msg.sender == ibcModule, "only ibc module");
     }
 
     /// Storage accessor ///
