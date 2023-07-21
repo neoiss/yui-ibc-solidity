@@ -74,9 +74,7 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
 
     function onAcknowledgementPacket(Packet.Data calldata packet, bytes calldata acknowledgement) external virtual override {
         if (!_isSuccessAcknowledgement(acknowledgement)) {
-            revert("onAcknowledgementPacket start");
             _refundTokens(FungibleTokenPacketData.decode(packet.data), packet.source_port, packet.source_channel);
-            revert("onAcknowledgementPacket end");
         }
     }
 
@@ -138,7 +136,7 @@ abstract contract ICS20Transfer is Context, IICS20Transfer {
     }
     
     function _isSuccessAcknowledgement(bytes memory acknowledgement) virtual internal pure returns (bool) {
-        require(acknowledgement.length == 1, "ack length is 1");
+        require(acknowledgement.length == 1, "ack length must be 1");
         return acknowledgement[0] == 0x01;
     }
 
