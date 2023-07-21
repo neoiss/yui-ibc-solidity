@@ -486,7 +486,11 @@ contract IBFT2Client is IClient {
     ) internal pure returns (bool) {
         bytes32 path = keccak256(abi.encodePacked(slot));
         bytes memory dataHash = proof.verify(root, path); // reverts if proof is invalid
-        return expectedValue == dataHash.toRLPItem().toBytes().toBytes32();
+        bool t = expectedValue == dataHash.toRLPItem().toBytes().toBytes32();
+        if (!t) {
+            revert("unexpected value");
+        }
+        return t;
     }
 
     function parseBesuHeader(Header.Data memory header) internal pure returns (ParsedBesuHeader memory) {
