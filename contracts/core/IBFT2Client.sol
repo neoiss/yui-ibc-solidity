@@ -488,7 +488,7 @@ contract IBFT2Client is IClient {
         bytes memory dataHash = proof.verify(root, path); // reverts if proof is invalid
         bool t = expectedValue == dataHash.toRLPItem().toBytes().toBytes32();
         if (!t) {
-            revert("unexpected value");
+            revert("verifyMembership unexpected value");
         }
         return t;
     }

@@ -182,7 +182,11 @@ contract MockClient is IClient {
     ) public override view returns (bool) {
         (, bool found) = host.getConsensusState(clientId, height);
         require(found, "consensus state not found");
-        return host.makePacketAcknowledgementCommitment(acknowledgement) == proof.toBytes32();
+        bool t = host.makePacketAcknowledgementCommitment(acknowledgement) == proof.toBytes32();
+        if (!t) {
+            revert("verifyPacketAcknowledgement failed");
+        }
+        return t;
     }
 
     function getClientState(IBCHost host, string memory clientId) public view returns (ClientState.Data memory clientState, bool found) {
