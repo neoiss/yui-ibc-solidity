@@ -387,6 +387,7 @@ contract IBFT2Client is IClient {
         uint64 sequence,
         bytes memory acknowledgement
     ) public override view returns (bool) {
+        revert("ibft verifyPacketAcknowledgement");
         ClientState.Data memory clientState = mustGetClientState(host, clientId);
         if (!validateArgs(clientState, height, prefix, proof)) {
             return false;

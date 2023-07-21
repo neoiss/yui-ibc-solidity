@@ -180,6 +180,7 @@ contract MockClient is IClient {
         uint64,
         bytes memory acknowledgement
     ) public override view returns (bool) {
+        revert("mock verifyPacketAcknowledgement");
         (, bool found) = host.getConsensusState(clientId, height);
         require(found, "consensus state not found");
         bool t = host.makePacketAcknowledgementCommitment(acknowledgement) == proof.toBytes32();
