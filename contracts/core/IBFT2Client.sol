@@ -415,6 +415,7 @@ contract IBFT2Client is IClient {
         bytes memory consensusStateBytes;
         (consensusStateBytes, found) = host.getConsensusState(clientId, height);
         if (!found) {
+            revert("not found consensus state");
             return (consensusState, false);
         }
         return (ConsensusState.decode(Any.decode(consensusStateBytes).value), true);
@@ -422,10 +423,13 @@ contract IBFT2Client is IClient {
 
     function validateArgs(ClientState.Data memory cs, Height.Data memory height, bytes memory prefix, bytes memory proof) internal pure returns (bool) {
         if (cs.latest_height.lt(height)) {
+            revert("more then latest height");
             return false;
         } else if (prefix.length == 0) {
+            revert("prefix length is zero");
             return false;
         } else if (proof.length == 0) {
+            revert("proof length is zero");
             return false;
         }
         return true;
@@ -435,11 +439,13 @@ contract IBFT2Client is IClient {
         uint64 currentTime = uint64(block.timestamp * 1000 * 1000 * 1000);
         uint64 validTime = mustGetProcessedTime(host, clientId, height) + delayPeriodTime;
         if (currentTime < validTime) {
+            revert("currentTime < validTime");
             return false;
         }
         uint64 currentHeight = uint64(block.number);
         uint64 validHeight = mustGetProcessedHeight(host, clientId, height) + delayPeriodBlocks;
         if (currentHeight < validHeight) {
+            revert("currentHeight < validHeight");
             return false;
         }
         return true;
