@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 library Bytes {
     function toAddress(bytes memory bz) internal pure returns (address addr) {
-        require(bz.length == 20, "toAddress: cannot convert into address");
+//        require(bz.length == 20, "toAddress: cannot convert into address");
         assembly {
             addr := mload(add(bz, 20))
         }
